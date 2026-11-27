@@ -1,0 +1,70 @@
+
+enable
+conf t
+no ip domain-lookup
+hostname MLS-HQ
+ip domain-name anaquel.mx
+username admin privilege 15 secret Anaquel43
+ip routing
+vlan 10
+ name SERVIDORES
+vlan 20
+ name DESARROLLO
+vlan 99
+ name GESTION
+exit
+interface fa0/3
+ description Enlace a R-HQ
+ no switchport
+ ip address 10.43.0.2 255.255.255.252
+ no shutdown
+interface range fa0/1 - 2
+ description Servidores API y BD
+ switchport mode access
+ switchport access vlan 10
+interface fa0/4
+ description Troncal a SW-HQ
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+interface vlan 10
+ ip address 10.43.10.1 255.255.255.0
+ no shutdown
+interface vlan 20
+ ip address 10.43.20.1 255.255.255.0
+ ip helper-address 10.43.0.1
+ no shutdown
+interface vlan 99
+ ip address 10.43.99.1 255.255.255.0
+ ip helper-address 10.43.0.1
+ no shutdown
+exit
+router ospf 43
+ router-id 2.2.2.2
+ network 10.43.0.0 0.0.0.3 area 0
+ network 10.43.10.0 0.0.0.255 area 0
+ network 10.43.20.0 0.0.0.255 area 0
+ network 10.43.99.0 0.0.0.255 area 0
+exit
+ip access-list extended PROTEGE-SERVIDORES
+ remark API publica - solo web
+ permit tcp any host 10.43.10.10 eq www
+ permit tcp any host 10.43.10.10 eq 443
+ permit icmp any host 10.43.10.10 echo
+ remark Desarrollo solo llega a la BD por Oracle 1521 y ping
+ permit tcp 10.43.20.0 0.0.0.255 host 10.43.10.11 eq 1521
+ permit icmp 10.43.20.0 0.0.0.255 host 10.43.10.11 echo
+ remark Gestion administra todo el segmento
+ permit ip 10.43.99.0 0.0.0.255 10.43.10.0 0.0.0.255
+ permit icmp any 10.43.10.0 0.0.0.255 echo-reply
+ deny ip any any
+exit
+interface vlan 10
+ ip access-group PROTEGE-SERVIDORES out
+exit
+access-list 99 permit 10.43.99.0 0.0.0.255
+line vty 0 4
+ login local
+ transport input ssh
+ access-class 99 in
+end
+write memory

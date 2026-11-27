@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="3.3" Serie="A" Folio="1"
+    Fecha="2026-08-20T10:15:00" SubTotal="5319.50" Moneda="MXN" Total="6170.62" TipoDeComprobante="I" Exportacion="01" LugarExpedicion="57000">
+  <cfdi:Emisor Rfc="PIN080910EF3" Nombre="Pinturas y Recubrimientos Neza SA de CV" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="XAXX010101000" Nombre="FERRETERIA EL TORNILLO FELIZ" UsoCFDI="G01"/>
+  <cfdi:Conceptos>
+    <cfdi:Concepto ClaveProdServ="27111700" Cantidad="4" ClaveUnidad="H87" Descripcion="Pintura vinílica blanca 19 L" ValorUnitario="1250.50" Importe="5002.00" ObjetoImp="02"/>
+    <cfdi:Concepto ClaveProdServ="27111700" Cantidad="10" ClaveUnidad="H87" Descripcion="Brocha de 3 pulgadas" ValorUnitario="31.75" Importe="317.50" ObjetoImp="02"/>
+  </cfdi:Conceptos>
+  <cfdi:Complemento>
+    <tfd:TimbreFiscalDigital Version="1.1" UUID="5F2A9C10-0003-4A7B-9C3D-000000000003" FechaTimbrado="2026-08-20T10:16:02" RfcProvCertif="SAT970701NN3"/>
+  </cfdi:Complemento>
+</cfdi:Comprobante>

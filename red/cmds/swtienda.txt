@@ -1,0 +1,20 @@
+
+enable
+conf t
+no ip domain-lookup
+hostname SW-TIENDA
+vlan 30
+ name CAJA
+vlan 40
+ name WIFI
+exit
+interface fa0/1
+ switchport mode access
+ switchport access vlan 30
+interface fa0/2
+ switchport mode access
+ switchport access vlan 40
+interface fa0/3
+ switchport mode trunk
+end
+write memory

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="4.0" Serie="A" Folio="1"
+    Fecha="2026-09-03T10:15:00" SubTotal="4500.00" Moneda="MXN" Total="5220.00" TipoDeComprobante="I" Exportacion="01" LugarExpedicion="57000">
+  <cfdi:Emisor Rfc="ELE050607CD2" Nombre="Eléctrica Industrial de Oriente SA de CV" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="XAXX010101000" Nombre="FERRETERIA EL TORNILLO FELIZ" UsoCFDI="G01"/>
+  <cfdi:Conceptos>
+    <cfdi:Concepto ClaveProdServ="27111700" NoIdentificacion="CAL-030" Cantidad="5" ClaveUnidad="H87" Descripcion="Calefactor eléctrico 1500 W" ValorUnitario="900.00" Importe="4500.00" ObjetoImp="02"/>
+  </cfdi:Conceptos>
+  <cfdi:Complemento>
+    <tfd:TimbreFiscalDigital Version="1.1" UUID="5F2A9C10-0002-4A7B-9C3D-000000000002" FechaTimbrado="2026-09-03T10:16:02" RfcProvCertif="SAT970701NN3"/>
+  </cfdi:Complemento>
+</cfdi:Comprobante>

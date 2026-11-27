@@ -1,0 +1,482 @@
+{
+  "corrida_id": 1,
+  "comercio": {
+    "nombre": "Ferretería El Tornillo Feliz",
+    "giro": "ferretería",
+    "zona_climatica": "TROPICAL",
+    "origen_zona": "GPS"
+  },
+  "iniciada_en": "2026-09-22T03:10:00-06:00",
+  "terminada_en": "2026-09-22T03:40:00-06:00",
+  "productos_evaluados": 59,
+  "recomendaciones": [
+    {
+      "recomendacion_id": 1,
+      "escenario": "E01",
+      "producto": {
+        "sku": "LLA-014",
+        "nombre": "Llave Stillson 14\"",
+        "ciclo": "PERMANENTE",
+        "categoria": "Herramienta manual",
+        "unidad": "PIEZA",
+        "admite_fraccion": false,
+        "precio_original": 520.0,
+        "costo_unitario": 390.0,
+        "fecha_caducidad": null
+      },
+      "salida": "LIQUIDAR",
+      "justificacion": "214 días sin venta contra un intervalo mediano de 60: 214 > 2×60 y > 90. Afinidad MEDIA, así que k = 2. Primer escalón de la escalera: 10 % sobre 520 = 468, estrictamente entre 273 y 520.",
+      "dias_sin_venta": 214,
+      "capital_detenido": 2340.0,
+      "afinidad_clima": "MEDIA",
+      "precio": {
+        "precio_original": 520.0,
+        "piso_economico": 273.0,
+        "piso_comercial": 156.0,
+        "precio_minimo": 273.0,
+        "precio_propuesto": 468.0,
+        "escalon": 1,
+        "sin_contraste_de_mercado": false
+      },
+      "retener": null,
+      "resurtir": null,
+      "abstencion": null,
+      "conciliacion": {
+        "existencia_fisica": 6,
+        "diferencia": 1,
+        "conciliada_en": "2026-09-21",
+        "origen": "FOTO"
+      },
+      "referencias": [
+        {
+          "fuente": "Catálogo de cadena ferretera",
+          "precio": 498.0,
+          "capturada_en": "2026-09-21",
+          "vigente_hasta": "2026-10-22",
+          "vigente": true,
+          "confianza_emparejamiento": 0.91
+        }
+      ],
+      "antecedente": null,
+      "autorizacion": {
+        "decision": "APROBADA",
+        "decidida_en": "2026-09-22T09:00:00-06:00",
+        "motivo": null
+      }
+    },
+    {
+      "recomendacion_id": 2,
+      "escenario": "E04",
+      "producto": {
+        "sku": "IMP-003",
+        "nombre": "Impermeabilizante 19 L",
+        "ciclo": "ESTACIONAL",
+        "categoria": "Pintura",
+        "unidad": "PIEZA",
+        "admite_fraccion": false,
+        "precio_original": 1250.0,
+        "costo_unitario": 890.0,
+        "fecha_caducidad": null
+      },
+      "salida": "RETENER",
+      "justificacion": "El 22 de septiembre cae dentro de Lluvias (1-jun a 30-sep). La ventana manda sobre cualquier umbral de rotación, y la fecha es el próximo inicio de ventana.",
+      "dias_sin_venta": 12,
+      "capital_detenido": 8010.0,
+      "afinidad_clima": "MEDIA",
+      "precio": null,
+      "retener": {
+        "fecha_reactivacion": "2027-06-01"
+      },
+      "resurtir": null,
+      "abstencion": null,
+      "conciliacion": {
+        "existencia_fisica": 9,
+        "diferencia": 0,
+        "conciliada_en": "2026-09-21",
+        "origen": "MANUAL"
+      },
+      "referencias": [],
+      "antecedente": null,
+      "autorizacion": null
+    },
+    {
+      "recomendacion_id": 3,
+      "escenario": "E05",
+      "producto": {
+        "sku": "ADO-021",
+        "nombre": "Serie de luces navideñas",
+        "ciclo": "ESTACIONAL",
+        "categoria": "Temporada",
+        "unidad": "PIEZA",
+        "admite_fraccion": false,
+        "precio_original": 260.0,
+        "costo_unitario": 150.0,
+        "fecha_caducidad": null
+      },
+      "salida": "RETENER",
+      "justificacion": "295 días sin venta dispararían el umbral, pero es de Fin de año (1-nov a 15-ene): está dormido, no muerto. Liquidarlo en septiembre destruye la venta de noviembre.",
+      "dias_sin_venta": 295,
+      "capital_detenido": 2700.0,
+      "afinidad_clima": "MEDIA",
+      "precio": null,
+      "retener": {
+        "fecha_reactivacion": "2026-11-01"
+      },
+      "resurtir": null,
+      "abstencion": null,
+      "conciliacion": {
+        "existencia_fisica": 18,
+        "diferencia": 0,
+        "conciliada_en": "2026-09-21",
+        "origen": "CARGA"
+      },
+      "referencias": [],
+      "antecedente": null,
+      "autorizacion": null
+    },
+    {
+      "recomendacion_id": 4,
+      "escenario": "E06",
+      "producto": {
+        "sku": "SEL-007",
+        "nombre": "Sellador acrílico 300 ml",
+        "ciclo": "PERECEDERO",
+        "categoria": "Pintura",
+        "unidad": "PIEZA",
+        "admite_fraccion": false,
+        "precio_original": 95.0,
+        "costo_unitario": 62.0,
+        "fecha_caducidad": "2026-12-26"
+      },
+      "salida": "LIQUIDAR",
+      "justificacion": "40 piezas a ritmo de ~0.1 al día no se venden en los 95 días que le quedan de vida menos el margen de 7. Escalón de 10 %: 85.50, entre 43.40 y 95.",
+      "dias_sin_venta": 18,
+      "capital_detenido": 2480.0,
+      "afinidad_clima": "MEDIA",
+      "precio": {
+        "precio_original": 95.0,
+        "piso_economico": 43.4,
+        "piso_comercial": 28.5,
+        "precio_minimo": 43.4,
+        "precio_propuesto": 85.5,
+        "escalon": 1,
+        "sin_contraste_de_mercado": false
+      },
+      "retener": null,
+      "resurtir": null,
+      "abstencion": null,
+      "conciliacion": {
+        "existencia_fisica": 40,
+        "diferencia": 0,
+        "conciliada_en": "2026-09-21",
+        "origen": "CARGA"
+      },
+      "referencias": [
+        {
+          "fuente": "Catálogo de cadena ferretera",
+          "precio": 88.0,
+          "capturada_en": "2026-09-21",
+          "vigente_hasta": "2026-10-22",
+          "vigente": true,
+          "confianza_emparejamiento": 0.9
+        }
+      ],
+      "antecedente": null,
+      "autorizacion": null
+    },
+    {
+      "recomendacion_id": 5,
+      "escenario": "E09",
+      "producto": {
+        "sku": "TUB-100",
+        "nombre": "Tubo galvanizado 2\" x 6 m",
+        "ciclo": "PERMANENTE",
+        "categoria": "Herramienta manual",
+        "unidad": "PIEZA",
+        "admite_fraccion": false,
+        "precio_original": 340.0,
+        "costo_unitario": 240.0,
+        "fecha_caducidad": null
+      },
+      "salida": "LIQUIDAR",
+      "justificacion": "2 ventas en 24 meses y 400 días sin vender: cae por la regla de historial insuficiente (< 3 ventas y > 365 días). Sin ella, justo el inventario muerto se quedaría fuera de toda regla.",
+      "dias_sin_venta": 400,
+      "capital_detenido": 960.0,
+      "afinidad_clima": "MEDIA",
+      "precio": {
+        "precio_original": 340.0,
+        "piso_economico": 168.0,
+        "piso_comercial": 102.0,
+        "precio_minimo": 168.0,
+        "precio_propuesto": 306.0,
+        "escalon": 1,
+        "sin_contraste_de_mercado": false
+      },
+      "retener": null,
+      "resurtir": null,
+      "abstencion": null,
+      "conciliacion": {
+        "existencia_fisica": 4,
+        "diferencia": 0,
+        "conciliada_en": "2026-09-21",
+        "origen": "MANUAL"
+      },
+      "referencias": [
+        {
+          "fuente": "Índice público de precios",
+          "precio": 352.0,
+          "capturada_en": "2026-09-21",
+          "vigente_hasta": "2026-11-21",
+          "vigente": true,
+          "confianza_emparejamiento": 0.84
+        }
+      ],
+      "antecedente": null,
+      "autorizacion": null
+    },
+    {
+      "recomendacion_id": 6,
+      "escenario": "E10",
+      "producto": {
+        "sku": "CAL-030",
+        "nombre": "Calefactor eléctrico 1500 W",
+        "ciclo": "PERMANENTE",
+        "categoria": "Electricidad",
+        "unidad": "PIEZA",
+        "admite_fraccion": false,
+        "precio_original": 1290.0,
+        "costo_unitario": 900.0,
+        "fecha_caducidad": null
+      },
+      "salida": "LIQUIDAR",
+      "justificacion": "Un calefactor en Mérida: afinidad BAJA, así que k = 1 y 130 > 1×90. Con k = 2 no sería candidato. Además arranca un escalón más profundo: 20 % → 1032.",
+      "dias_sin_venta": 130,
+      "capital_detenido": 4500.0,
+      "afinidad_clima": "BAJA",
+      "precio": {
+        "precio_original": 1290.0,
+        "piso_economico": 630.0,
+        "piso_comercial": 387.0,
+        "precio_minimo": 630.0,
+        "precio_propuesto": 1032.0,
+        "escalon": 2,
+        "sin_contraste_de_mercado": false
+      },
+      "retener": null,
+      "resurtir": null,
+      "abstencion": null,
+      "conciliacion": {
+        "existencia_fisica": 5,
+        "diferencia": 0,
+        "conciliada_en": "2026-09-21",
+        "origen": "CARGA"
+      },
+      "referencias": [
+        {
+          "fuente": "Marketplace nacional",
+          "precio": 1190.0,
+          "capturada_en": "2026-09-21",
+          "vigente_hasta": "2026-10-07",
+          "vigente": true,
+          "confianza_emparejamiento": 0.78
+        }
+      ],
+      "antecedente": null,
+      "autorizacion": {
+        "decision": "RECHAZADA",
+        "decidida_en": "2026-09-22T09:00:00-06:00",
+        "motivo": "El precio es muy bajo; en diciembre sí se vende."
+      }
+    },
+    {
+      "recomendacion_id": 7,
+      "escenario": "E12",
+      "producto": {
+        "sku": "CHA-070",
+        "nombre": "Chamarra acolchada de trabajo",
+        "ciclo": "ESTACIONAL",
+        "categoria": "Ropa de trabajo",
+        "unidad": "PIEZA",
+        "admite_fraccion": false,
+        "precio_original": 780.0,
+        "costo_unitario": 520.0,
+        "fecha_caducidad": null
+      },
+      "salida": "ABSTENERSE",
+      "justificacion": "El caso que motivó BIT-012. La zona dice que casi no rota; la ventana dice que en diciembre sí. El clima no deroga BIT-001: no se liquida por afinidad baja. Se declara la contradicción y se abstiene.",
+      "dias_sin_venta": 610,
+      "capital_detenido": 5720.0,
+      "afinidad_clima": "BAJA",
+      "precio": null,
+      "retener": null,
+      "resurtir": null,
+      "abstencion": {
+        "motivo": "La temporada declarada (Frentes fríos) contradice la afinidad climática de la zona. No decido: hay que revisar la ventana."
+      },
+      "conciliacion": {
+        "existencia_fisica": 11,
+        "diferencia": 0,
+        "conciliada_en": "2026-09-21",
+        "origen": "MANUAL"
+      },
+      "referencias": [],
+      "antecedente": null,
+      "autorizacion": null
+    },
+    {
+      "recomendacion_id": 8,
+      "escenario": "E13",
+      "producto": {
+        "sku": "MAR-001",
+        "nombre": "Martillo de uña 16 oz",
+        "ciclo": "PERMANENTE",
+        "categoria": "Herramienta manual",
+        "unidad": "PIEZA",
+        "admite_fraccion": false,
+        "precio_original": 180.0,
+        "costo_unitario": 110.0,
+        "fecha_caducidad": null
+      },
+      "salida": "RESURTIR",
+      "justificacion": "Rotación sana (venta cada 9 días) y 3 piezas contra un punto de reorden de 5. RESURTIR produce cantidad, nunca precio.",
+      "dias_sin_venta": 3,
+      "capital_detenido": 330.0,
+      "afinidad_clima": "MEDIA",
+      "precio": null,
+      "retener": null,
+      "resurtir": {
+        "cantidad_sugerida": 24
+      },
+      "abstencion": null,
+      "conciliacion": {
+        "existencia_fisica": 3,
+        "diferencia": 0,
+        "conciliada_en": "2026-09-21",
+        "origen": "CARGA"
+      },
+      "referencias": [],
+      "antecedente": null,
+      "autorizacion": null
+    },
+    {
+      "recomendacion_id": 9,
+      "escenario": "E15",
+      "producto": {
+        "sku": "NOC-001",
+        "nombre": "Carretilla reforzada",
+        "ciclo": "PERMANENTE",
+        "categoria": "Jardinería",
+        "unidad": "PIEZA",
+        "admite_fraccion": false,
+        "precio_original": 1450.0,
+        "costo_unitario": null,
+        "fecha_caducidad": null
+      },
+      "salida": "ABSTENERSE",
+      "justificacion": "Sin costo no hay piso económico, y sin piso no hay rango en el cual elegir.",
+      "dias_sin_venta": 240,
+      "capital_detenido": null,
+      "afinidad_clima": "ALTA",
+      "precio": null,
+      "retener": null,
+      "resurtir": null,
+      "abstencion": {
+        "motivo": "No tengo el costo de este producto, así que no puedo calcular hasta dónde se puede rebajar sin perder más de lo aceptable."
+      },
+      "conciliacion": {
+        "existencia_fisica": 3,
+        "diferencia": 0,
+        "conciliada_en": "2026-09-21",
+        "origen": "MANUAL"
+      },
+      "referencias": [],
+      "antecedente": null,
+      "autorizacion": null
+    },
+    {
+      "recomendacion_id": 10,
+      "escenario": "E16",
+      "producto": {
+        "sku": "PIN-012",
+        "nombre": "Pintura vinílica 4 L blanco",
+        "ciclo": "PERMANENTE",
+        "categoria": "Pintura",
+        "unidad": "PIEZA",
+        "admite_fraccion": false,
+        "precio_original": 480.0,
+        "costo_unitario": 300.0,
+        "fecha_caducidad": null
+      },
+      "salida": "LIQUIDAR",
+      "justificacion": "La única referencia de este producto venció hace 9 días. La propuesta sale, pero marcada: el dueño tiene que ver que no hubo contraste de mercado. Emitida SIN referencia de mercado vigente.",
+      "dias_sin_venta": 260,
+      "capital_detenido": 2400.0,
+      "afinidad_clima": "MEDIA",
+      "precio": {
+        "precio_original": 480.0,
+        "piso_economico": 210.0,
+        "piso_comercial": 144.0,
+        "precio_minimo": 210.0,
+        "precio_propuesto": 432.0,
+        "escalon": 1,
+        "sin_contraste_de_mercado": true
+      },
+      "retener": null,
+      "resurtir": null,
+      "abstencion": null,
+      "conciliacion": {
+        "existencia_fisica": 8,
+        "diferencia": 0,
+        "conciliada_en": "2026-09-21",
+        "origen": "CARGA"
+      },
+      "referencias": [
+        {
+          "fuente": "Catálogo de cadena ferretera",
+          "precio": 455.0,
+          "capturada_en": "2026-09-03",
+          "vigente_hasta": "2026-09-13",
+          "vigente": false,
+          "confianza_emparejamiento": 0.87
+        }
+      ],
+      "antecedente": null,
+      "autorizacion": null
+    },
+    {
+      "recomendacion_id": 12,
+      "escenario": "E18",
+      "producto": {
+        "sku": "PIS-001",
+        "nombre": "Bomba sumergible 1/2 HP",
+        "ciclo": "PERMANENTE",
+        "categoria": "Jardinería",
+        "unidad": "PIEZA",
+        "admite_fraccion": false,
+        "precio_original": 100.0,
+        "costo_unitario": 140.0,
+        "fecha_caducidad": null
+      },
+      "salida": "ABSTENERSE",
+      "justificacion": "Piso económico 98 sobre un precio de 100: el primer escalón (10 % → 90) ya cae por debajo del mínimo. El rango abierto está vacío y el agente lo dice.",
+      "dias_sin_venta": 330,
+      "capital_detenido": 280.0,
+      "afinidad_clima": "ALTA",
+      "precio": null,
+      "retener": null,
+      "resurtir": null,
+      "abstencion": {
+        "motivo": "El precio mínimo (98.00) está tan pegado al precio actual (100.00) que ninguna rebaja cabe entre los dos."
+      },
+      "conciliacion": {
+        "existencia_fisica": 2,
+        "diferencia": 0,
+        "conciliada_en": "2026-09-21",
+        "origen": "MANUAL"
+      },
+      "referencias": [],
+      "antecedente": null,
+      "autorizacion": null
+    }
+  ]
+}

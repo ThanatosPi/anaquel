@@ -1,0 +1,117 @@
+{
+  "cfdi_01.xml": {
+    "version": "4.0",
+    "uuid": "5F2A9C10-0001-4A7B-9C3D-000000000001",
+    "emisor_rfc": "DHE010203AB1",
+    "emisor_nombre": "Distribuidora de Herramientas del Centro SA de CV",
+    "fecha": "2026-09-01",
+    "subtotal": "3660.00",
+    "total": "4245.60",
+    "renglones": [
+      {
+        "codigo": "LLA-014",
+        "descripcion": "Llave Stillson 14\"",
+        "cantidad": "6",
+        "importe": "2340.00"
+      },
+      {
+        "codigo": "MAR-001",
+        "descripcion": "Martillo de uña 16 oz",
+        "cantidad": "12",
+        "importe": "1320.00"
+      }
+    ]
+  },
+  "cfdi_02.xml": {
+    "version": "4.0",
+    "uuid": "5F2A9C10-0002-4A7B-9C3D-000000000002",
+    "emisor_rfc": "ELE050607CD2",
+    "emisor_nombre": "Eléctrica Industrial de Oriente SA de CV",
+    "fecha": "2026-09-03",
+    "subtotal": "4500.00",
+    "total": "5220.00",
+    "renglones": [
+      {
+        "codigo": "CAL-030",
+        "descripcion": "Calefactor eléctrico 1500 W",
+        "cantidad": "5",
+        "importe": "4500.00"
+      }
+    ]
+  },
+  "cfdi_03.xml": {
+    "version": "3.3",
+    "uuid": "5F2A9C10-0003-4A7B-9C3D-000000000003",
+    "emisor_rfc": "PIN080910EF3",
+    "emisor_nombre": "Pinturas y Recubrimientos Neza SA de CV",
+    "fecha": "2026-08-20",
+    "subtotal": "5319.50",
+    "total": "6170.62",
+    "renglones": [
+      {
+        "codigo": null,
+        "descripcion": "Pintura vinílica blanca 19 L",
+        "cantidad": "4",
+        "importe": "5002.00"
+      },
+      {
+        "codigo": null,
+        "descripcion": "Brocha de 3 pulgadas",
+        "cantidad": "10",
+        "importe": "317.50"
+      }
+    ]
+  },
+  "cfdi_04.xml": {
+    "version": "4.0",
+    "uuid": "5F2A9C10-0004-4A7B-9C3D-000000000004",
+    "emisor_rfc": "TUB111213GH4",
+    "emisor_nombre": "Tubos & Conexiones «El Güero» SA de CV",
+    "fecha": "2026-09-10",
+    "subtotal": "2287.50",
+    "total": "2653.50",
+    "renglones": [
+      {
+        "codigo": "TUB-100",
+        "descripcion": "Tubo galvanizado 2\" x 6 m",
+        "cantidad": "3",
+        "importe": "1920.00"
+      },
+      {
+        "codigo": null,
+        "descripcion": "Cable calibre 12 (por metro)",
+        "cantidad": "37.500",
+        "importe": "367.50"
+      }
+    ]
+  },
+  "cfdi_05.xml": {
+    "version": "4.0",
+    "uuid": "5F2A9C10-0005-4A7B-9C3D-000000000005",
+    "emisor_rfc": "JAR141516IJ5",
+    "emisor_nombre": "Jardinería y Riego del Valle SA de CV",
+    "fecha": "2026-09-15",
+    "subtotal": "3390.40",
+    "total": "3932.86",
+    "renglones": [
+      {
+        "codigo": null,
+        "descripcion": "Manguera de jardín 15 m",
+        "cantidad": "8",
+        "importe": "1640.00"
+      },
+      {
+        "codigo": null,
+        "descripcion": "Regadera de plástico",
+        "cantidad": "6",
+        "importe": "530.40"
+      },
+      {
+        "codigo": null,
+        "descripcion": "Guantes de carnaza",
+        "cantidad": "20",
+        "importe": "1220.00"
+      }
+    ]
+  }
+}

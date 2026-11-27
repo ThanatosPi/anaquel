@@ -1,0 +1,9 @@
+
+conf t
+crypto key generate rsa
+#SLEEP 1
+1024
+#SLEEP 4
+ip ssh version 2
+end
+write memory

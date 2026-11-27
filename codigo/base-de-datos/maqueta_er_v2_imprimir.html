@@ -1,0 +1,780 @@
+<title>Modelo ER de Anaquel v2 · impresión</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Didact+Gothic&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: columna de lectura de ~68ch; el diagrama y el diccionario usan el ancho completo (1180px). */
+:root {
+  --paper: #F2F4F8;
+  --surface: #FFFFFF;
+  --ink: #14203D;
+  --muted: #5A6580;
+  --line: #D3DAE7;
+  --navy: #10265C;
+  --navy-ink: #FFFFFF;
+  --red: #C81E2C;
+  --edge: #5B6782;
+  --fk-fill: #E2E8F5;
+  --ok: #1C7444;
+  --ok-fill: #E1F2E8;
+  --bad: #B0212D;
+  --bad-fill: #FBE4E6;
+  --a1: #E4E7EE; --a2: #D8E5F7; --a3: #DBEFE1; --a4: #F3E8D1; --a5: #E7DFF4; --a6: #F5DEE1;
+  --f-display: "Didact Gothic", "Century Gothic", "Futura", sans-serif;
+  --f-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
+}
+
+body { background: var(--paper); color: var(--ink); font: 400 15.5px/1.6 var(--f-body); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 36px 72px; display: grid; gap: 56px; }
+.prose { max-width: 68ch; }
+h1, h2, h3, h4 { text-wrap: balance; margin: 0; }
+h1 { font: 400 clamp(30px, 4.4vw, 44px)/1.12 var(--f-display); letter-spacing: -0.01em; }
+h2 { font: 400 27px/1.2 var(--f-display); display: flex; gap: 12px; align-items: baseline; }
+h2 .n { font: 600 14px/1 var(--f-mono); color: var(--red); }
+h3 { font: 700 17px/1.3 var(--f-body); display: flex; gap: 10px; align-items: center; }
+p { margin: 0; }
+code { font-family: var(--f-mono); font-size: 0.88em; }
+section > .head { display: grid; gap: 10px; margin-bottom: 20px; }
+.lede { color: var(--muted); max-width: 68ch; }
+
+/* encabezado */
+.top { display: grid; gap: 18px; }
+.brand { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.logo { width: 44px; height: 44px; flex: none; }
+.eyebrow { font: 600 12px/1.3 var(--f-body); letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+.status { font: 600 12px/1 var(--f-body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--red);
+  border: 1px solid currentColor; border-radius: 999px; padding: 5px 10px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 26px; font-variant-numeric: tabular-nums; color: var(--muted);
+  border-top: 1px solid var(--line); padding-top: 14px; }
+.facts b { color: var(--ink); font-weight: 700; }
+
+/* tablas de texto */
+.tw { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+table.t { border-collapse: collapse; width: 100%; min-width: 720px; }
+table.t th, table.t td { text-align: left; vertical-align: top; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+table.t tr:last-child th, table.t tr:last-child td { border-bottom: 0; }
+table.t thead th { font: 600 12px/1.3 var(--f-body); letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+table.t tbody th { font-weight: 700; width: 24%; }
+table.t td.ej { display: flex; flex-direction: column; gap: 4px; }
+table.t td.ej code { white-space: nowrap; }
+
+/* diagrama */
+.fig { margin: 0; display: grid; gap: 12px; }
+.er-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+svg.er { display: block; width: 100%; min-width: 960px; height: auto; }
+figcaption { color: var(--muted); font-size: 14px; max-width: 80ch; }
+.er-bg { fill: var(--surface); }
+.er-box { fill: var(--surface); stroke: var(--line); stroke-width: 1.2; }
+.er-hd { stroke: none; }
+.a1 { fill: var(--a1); background: var(--a1); } .a2 { fill: var(--a2); background: var(--a2); }
+.a3 { fill: var(--a3); background: var(--a3); } .a4 { fill: var(--a4); background: var(--a4); }
+.a5 { fill: var(--a5); background: var(--a5); } .a6 { fill: var(--a6); background: var(--a6); }
+.er-sep { stroke: var(--line); stroke-width: 1; }
+.er-tn { font: 600 12.5px var(--f-mono); fill: var(--ink); }
+.er-r { font: 400 11.5px var(--f-mono); fill: var(--ink); }
+.er-r-co { fill: var(--muted); }
+.er-ft { font: 400 10.5px var(--f-body); fill: var(--muted); }
+.er-el { font: 400 10.5px var(--f-mono); fill: var(--muted); }
+.er-e { stroke: var(--edge); stroke-width: 1.3; fill: none; }
+.er-m { stroke: var(--edge); stroke-width: 1.3; }
+.er-o { fill: var(--surface); stroke: var(--edge); stroke-width: 1.3; }
+.er-co { fill: var(--red); }
+.er-b { stroke-width: 1; }
+.b-pk { fill: var(--navy); stroke: var(--navy); }
+.b-fk { fill: var(--fk-fill); stroke: var(--fk-fill); }
+.b-fkx { fill: var(--surface); stroke: var(--edge); }
+.b-uq { fill: var(--surface); stroke: var(--muted); stroke-dasharray: 2 2; }
+.er-bt { font: 600 8.5px var(--f-mono); }
+.b-pk-t { fill: var(--navy-ink); } .b-fk-t, .b-fkx-t { fill: var(--ink); } .b-uq-t { fill: var(--muted); }
+.er-legend { fill: var(--paper); stroke: var(--line); }
+.er-lt { font: 700 12.5px var(--f-body); fill: var(--ink); }
+.er-l { font: 400 11.5px var(--f-body); fill: var(--ink); }
+.er-chip { stroke: var(--line); }
+.er-a { cursor: pointer; }
+.er-a:hover .er-box, .er-a:focus-visible .er-box { stroke: var(--navy); stroke-width: 2; }
+.er-a:focus { outline: none; }
+
+/* aislamiento */
+.iso { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 20px; }
+.iso figure { margin: 0; display: grid; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+.iso h4 { font: 700 15px/1.3 var(--f-body); }
+.iso svg { width: 100%; height: auto; display: block; }
+.iso-k { font: 600 12.5px var(--f-mono); fill: var(--ink); }
+.iso-v { font: 400 12px var(--f-mono); fill: var(--ink); }
+.iso-s { font: 400 12px var(--f-body); fill: var(--muted); }
+.iso-q { font: 400 11.5px var(--f-mono); fill: var(--ink); }
+.iso-r { font: 700 11.5px var(--f-body); }
+.iso-r-ok { fill: var(--muted); } .iso-r-no { fill: var(--ok); }
+.iso-e { stroke: var(--edge); stroke-width: 1.5; }
+.iso-e-no { stroke: var(--ok); stroke-dasharray: 5 4; }
+.iso-h { fill: var(--edge); }
+.iso-ok { fill: var(--ok-fill); stroke: var(--ok); }
+.iso-bad { fill: var(--bad-fill); stroke: var(--bad); }
+.iso-res { font: 700 13px var(--f-body); fill: var(--ink); }
+
+/* diccionario */
+.areas { display: grid; gap: 40px; }
+.area { display: grid; gap: 6px; }
+.area-d { color: var(--muted); margin-bottom: 10px; }
+.swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--line); flex: none; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 500px), 1fr)); gap: 18px; align-items: start; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; scroll-margin-top: 16px; }
+.card:target { outline: 2px solid var(--navy); outline-offset: 2px; }
+.card-h { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; justify-content: space-between; padding: 10px 14px; }
+.card-h h4 code { font: 600 15px var(--f-mono); color: var(--ink); }
+.metas { display: flex; flex-wrap: wrap; gap: 6px; }
+.meta { font-size: 12.5px; color: var(--ink); opacity: 0.85; }
+.meta-abs { font-weight: 600; }
+.card-d { padding: 10px 14px 4px; color: var(--muted); font-size: 14px; }
+table.cols { border-collapse: collapse; width: 100%; }
+table.cols td { padding: 7px 14px; border-top: 1px solid var(--line); vertical-align: top; }
+table.cols tr:first-child td { border-top: 0; }
+td.ck { width: 52px; white-space: nowrap; padding-right: 0; }
+td.ct { font: 400 12px/1.9 var(--f-mono); color: var(--muted); white-space: nowrap; text-align: right; }
+code.col { font: 500 13.5px var(--f-mono); color: var(--ink); overflow-wrap: anywhere; }
+.sub { display: flex; flex-direction: column; gap: 2px; margin-top: 3px; }
+.antes, .nota { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+.antes code { text-decoration: line-through; text-decoration-color: var(--red); }
+.nueva { font: 700 11px/1 var(--f-body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--red); }
+.b { display: inline-block; min-width: 22px; text-align: center; font: 600 10px/16px var(--f-mono); border-radius: 3px; padding: 0 3px; margin-right: 2px; }
+span.b-pk { background: var(--navy); color: var(--navy-ink); }
+span.b-fk { background: var(--fk-fill); color: var(--ink); }
+span.b-fkx { border: 1px solid var(--edge); color: var(--ink); line-height: 14px; }
+span.b-uq { border: 1px dashed var(--muted); color: var(--muted); line-height: 14px; }
+span.b-co { color: var(--red); font-size: 12px; min-width: 16px; }
+span.b-gen { border: 1px solid var(--line); color: var(--muted); line-height: 14px; font-family: var(--f-body); }
+
+/* listas */
+ul.plain { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; max-width: 80ch; }
+ol.q { margin: 0; padding-left: 1.4em; display: grid; gap: 14px; max-width: 72ch; }
+ol.q li::marker { font: 600 14px var(--f-mono); color: var(--red); }
+.sub-h { margin-top: 26px; margin-bottom: 10px; }
+footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 16px; }
+a { color: var(--navy); }
+a:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+@page { size: letter portrait; margin: 10mm; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { background: #FFFFFF; font-size: 8pt; line-height: 1.4; }
+.hoja { height: 257mm; display: grid; gap: 4mm; break-after: page; overflow: hidden; }
+.hoja:last-of-type { break-after: auto; }
+.hoja-1 { grid-template-columns: 1fr auto; }
+.hoja-2 { grid-template-columns: auto 1fr; }
+.hoja svg.er { height: 257mm; width: auto; min-width: 0; display: block; }
+.hoja-1 svg.er { border-right: 0.4mm dashed #8E9AB7; }
+.hoja-2 svg.er { border-left: 0.4mm dashed #8E9AB7; }
+.lado { display: flex; flex-direction: column; gap: 3mm; }
+.hoja-2 .lado { justify-content: flex-end; }
+.lado .logo { width: 11mm; height: 11mm; }
+.lado .eyebrow { font-size: 6.5pt; }
+.lado h1 { font-size: 15pt; line-height: 1.15; }
+.lado .status { font-size: 6.5pt; align-self: flex-start; padding: 1mm 2mm; }
+.lado ul { list-style: none; margin: 0; padding: 2.5mm 0 0; display: grid; gap: 1.2mm; color: var(--muted);
+  border-top: 0.3mm solid var(--line); font-variant-numeric: tabular-nums; }
+.lado ul b { color: var(--ink); }
+.lado .hoja-n { font: 600 7pt var(--f-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); }
+.lado p { color: var(--muted); font-size: 7pt; }
+</style>
+<section class="hoja hoja-1">
+  <div class="lado">
+    <svg class="logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Anaquel"><rect width="512" height="512" rx="112" fill="#10265C"/><g stroke="#FFFFFF" stroke-width="36" stroke-linecap="round" fill="none"><line x1="256" y1="96" x2="136" y2="412"/><line x1="256" y1="96" x2="376" y2="412"/></g><line x1="168" y1="376" x2="344" y2="376" stroke="#FFFFFF" stroke-width="12"/><rect x="191" y="328" width="38" height="42" rx="5" fill="#FFFFFF"/><rect x="237" y="338" width="38" height="32" rx="5" fill="#FFFFFF"/><rect x="283" y="334" width="38" height="36" rx="5" fill="#D0202F"/></svg>
+    <span class="eyebrow">Anaquel · Base de Datos · Grupo 501</span>
+    <h1>Modelo entidad-relación, versión 2</h1>
+    <span class="status">Propuesta sin aplicar</span>
+    <ul><li><b>21</b> tablas</li><li><b>172</b> columnas</li><li>Con la revisión del 8 de octubre de 2026</li></ul>
+    <span class="hoja-n">Hoja 1 de 2 · izquierda</span>
+    <p>Para unirlas, recorta esta hoja por la línea punteada y empálmala sobre el margen izquierdo de la hoja 2, de modo que las dos líneas punteadas coincidan. Las líneas del diagrama continúan de una hoja a la otra.</p>
+    <p>Impreso el 20 de octubre de 2026.</p>
+  </div>
+  <svg class="er" viewBox="10 30 576 988" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Modelo entidad-relación de Anaquel: 21 tablas y sus llaves foráneas."><rect class="er-bg" x="0" y="0" width="1172" height="1040"/><path class="er-e" fill="none" d="M256,80 L276,80 L276,140 L314,140"/><line class="er-m" x1="261" y1="75" x2="261" y2="85"/><circle class="er-o" cx="269" cy="80" r="3"/><path class="er-m" fill="none" d="M305,140 L314,135 M305,140 L314,145"/><circle class="er-o" cx="301" cy="140" r="3"/>
+<path class="er-e" fill="none" d="M256,224 L284,224 L284,160 L314,160"/><line class="er-m" x1="261" y1="219" x2="261" y2="229"/><circle class="er-o" cx="269" cy="224" r="3"/><path class="er-m" fill="none" d="M305,160 L314,155 M305,160 L314,165"/><circle class="er-o" cx="301" cy="160" r="3"/>
+<path class="er-e" fill="none" d="M256,368 L292,368 L292,180 L314,180"/><line class="er-m" x1="261" y1="363" x2="261" y2="373"/><line class="er-m" x1="265" y1="363" x2="265" y2="373"/><path class="er-m" fill="none" d="M305,180 L314,175 M305,180 L314,185"/><circle class="er-o" cx="301" cy="180" r="3"/>
+<path class="er-e" fill="none" d="M546,80 L566,80 L566,736"/>
+<path class="er-e" fill="none" d="M566,100 L626,100"/><line class="er-m" x1="571" y1="95" x2="571" y2="105"/><line class="er-m" x1="575" y1="95" x2="575" y2="105"/><path class="er-m" fill="none" d="M617,100 L626,95 M617,100 L626,105"/><circle class="er-o" cx="613" cy="100" r="3"/>
+<path class="er-e" fill="none" d="M566,244 L626,244"/><line class="er-m" x1="571" y1="239" x2="571" y2="249"/><line class="er-m" x1="575" y1="239" x2="575" y2="249"/><path class="er-m" fill="none" d="M617,244 L626,239 M617,244 L626,249"/><circle class="er-o" cx="613" cy="244" r="3"/>
+<path class="er-e" fill="none" d="M566,388 L626,388"/><line class="er-m" x1="571" y1="383" x2="571" y2="393"/><line class="er-m" x1="575" y1="383" x2="575" y2="393"/><path class="er-m" fill="none" d="M617,388 L626,383 M617,388 L626,393"/><circle class="er-o" cx="613" cy="388" r="3"/>
+<path class="er-e" fill="none" d="M566,552 L626,552"/><line class="er-m" x1="571" y1="547" x2="571" y2="557"/><line class="er-m" x1="575" y1="547" x2="575" y2="557"/><path class="er-m" fill="none" d="M617,552 L626,547 M617,552 L626,557"/><circle class="er-o" cx="613" cy="552" r="3"/>
+<path class="er-e" fill="none" d="M566,736 L626,736"/><line class="er-m" x1="571" y1="731" x2="571" y2="741"/><line class="er-m" x1="575" y1="731" x2="575" y2="741"/><path class="er-m" fill="none" d="M617,736 L626,731 M617,736 L626,741"/><circle class="er-o" cx="613" cy="736" r="3"/>
+<path class="er-e" fill="none" d="M916,80 L858,80"/><line class="er-m" x1="911" y1="75" x2="911" y2="85"/><line class="er-m" x1="907" y1="75" x2="907" y2="85"/><path class="er-m" fill="none" d="M867,80 L858,75 M867,80 L858,85"/><circle class="er-o" cx="871" cy="80" r="3"/>
+<path class="er-e" fill="none" d="M916,224 L858,224"/><line class="er-m" x1="911" y1="219" x2="911" y2="229"/><line class="er-m" x1="907" y1="219" x2="907" y2="229"/><path class="er-m" fill="none" d="M867,224 L858,219 M867,224 L858,229"/><circle class="er-o" cx="871" cy="224" r="3"/>
+<path class="er-e" fill="none" d="M916,408 L858,408"/><line class="er-m" x1="911" y1="403" x2="911" y2="413"/><line class="er-m" x1="907" y1="403" x2="907" y2="413"/><path class="er-m" fill="none" d="M867,408 L858,403 M867,408 L858,413"/><circle class="er-o" cx="871" cy="408" r="3"/>
+<path class="er-e" fill="none" d="M916,716 L858,716"/><line class="er-m" x1="911" y1="711" x2="911" y2="721"/><line class="er-m" x1="907" y1="711" x2="907" y2="721"/><path class="er-m" fill="none" d="M867,716 L858,711 M867,716 L858,721"/><circle class="er-o" cx="871" cy="716" r="3"/>
+<path class="er-e" fill="none" d="M626,932 L546,932"/><line class="er-m" x1="621" y1="927" x2="621" y2="937"/><line class="er-m" x1="617" y1="927" x2="617" y2="937"/><path class="er-m" fill="none" d="M555,932 L546,927 M555,932 L546,937"/><circle class="er-o" cx="559" cy="932" r="3"/>
+<path class="er-e" fill="none" d="M256,952 L314,952"/><line class="er-m" x1="261" y1="947" x2="261" y2="957"/><line class="er-m" x1="265" y1="947" x2="265" y2="957"/><path class="er-m" fill="none" d="M305,952 L314,947 M305,952 L314,957"/><circle class="er-o" cx="301" cy="952" r="3"/>
+<path class="er-e" fill="none" d="M858,434 L878,434 L878,536 L916,536"/><line class="er-m" x1="863" y1="429" x2="863" y2="439"/><line class="er-m" x1="867" y1="429" x2="867" y2="439"/><path class="er-m" fill="none" d="M907,536 L916,531 M907,536 L916,541"/><circle class="er-o" cx="903" cy="536" r="3"/>
+<path class="er-e" fill="none" d="M858,696 L886,696 L886,556 L916,556"/><line class="er-m" x1="863" y1="691" x2="863" y2="701"/><line class="er-m" x1="867" y1="691" x2="867" y2="701"/><path class="er-m" fill="none" d="M907,556 L916,551 M907,556 L916,561"/><circle class="er-o" cx="903" cy="556" r="3"/>
+<path class="er-e" fill="none" d="M742,608 L742,656"/><line class="er-m" x1="737" y1="613" x2="747" y2="613"/><line class="er-m" x1="737" y1="617" x2="747" y2="617"/><path class="er-m" fill="none" d="M742,647 L737,656 M742,647 L747,656"/><circle class="er-o" cx="742" cy="643" r="3"/>
+<path class="er-e" fill="none" d="M742,832 L742,892"/><line class="er-m" x1="737" y1="837" x2="747" y2="837"/><line class="er-m" x1="737" y1="841" x2="747" y2="841"/><line class="er-m" x1="737" y1="887" x2="747" y2="887"/><circle class="er-o" cx="742" cy="879" r="3"/>
+<path class="er-e" fill="none" d="M430,372 L430,420"/><line class="er-m" x1="425" y1="377" x2="435" y2="377"/><circle class="er-o" cx="430" cy="385" r="3"/><path class="er-m" fill="none" d="M430,411 L425,420 M430,411 L435,420"/><circle class="er-o" cx="430" cy="407" r="3"/>
+<path class="er-e" fill="none" d="M430,748 L430,700"/><line class="er-m" x1="425" y1="743" x2="435" y2="743"/><line class="er-m" x1="425" y1="739" x2="435" y2="739"/><path class="er-m" fill="none" d="M430,709 L425,700 M430,709 L435,700"/><circle class="er-o" cx="430" cy="713" r="3"/>
+<path class="er-e" fill="none" d="M662,832 L662,860 L600,860 L600,776 L626,776"/><line class="er-m" x1="657" y1="837" x2="667" y2="837"/><circle class="er-o" cx="662" cy="845" r="3"/><path class="er-m" fill="none" d="M617,776 L626,771 M617,776 L626,781"/><circle class="er-o" cx="613" cy="776" r="3"/><text class="er-el" x="751" y="636">conciliacion_id</text><text class="er-el" x="751" y="866">recomendacion_id · 1 a 0..1</text><text class="er-el" x="439" y="400">municipio_zona_id</text><text class="er-el" x="439" y="728">codigo_rol</text><a class="er-a" href="#t-comercio" aria-label="comercio: ver sus columnas">
+<rect class="er-box" x="314" y="420" width="232" height="116" rx="5"/>
+<path class="er-hd a1" d="M314,450 V425 Q314,420 319,420 H541 Q546,420 546,425 V450 Z"/>
+<line class="er-sep" x1="314" y1="450" x2="546" y2="450"/>
+<text class="er-tn" x="324" y="440">comercio</text>
+<rect class="er-b b-pk" x="322" y="453" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="331" y="463.5" text-anchor="middle">PK</text>
+<text class="er-r" x="366" y="464">comercio_id</text>
+<rect class="er-b b-fk" x="322" y="473" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="483.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="484">municipio_zona_id</text>
+<rect class="er-b b-uq" x="322" y="493" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="331" y="503.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="366" y="504">rfc</text>
+<text class="er-ft" x="366" y="524">+7 columnas más</text>
+</a>
+<a class="er-a" href="#t-rol" aria-label="rol: ver sus columnas">
+<rect class="er-box" x="314" y="748" width="232" height="76" rx="5"/>
+<path class="er-hd a1" d="M314,778 V753 Q314,748 319,748 H541 Q546,748 546,753 V778 Z"/>
+<line class="er-sep" x1="314" y1="778" x2="546" y2="778"/>
+<text class="er-tn" x="324" y="768">rol</text>
+<rect class="er-b b-pk" x="322" y="781" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="331" y="791.5" text-anchor="middle">PK</text>
+<text class="er-r" x="366" y="792">codigo_rol</text>
+<text class="er-ft" x="366" y="812">+1 columna más</text>
+</a>
+<a class="er-a" href="#t-usuario" aria-label="usuario: ver sus columnas">
+<rect class="er-box" x="314" y="564" width="232" height="136" rx="5"/>
+<path class="er-hd a1" d="M314,594 V569 Q314,564 319,564 H541 Q546,564 546,569 V594 Z"/>
+<line class="er-sep" x1="314" y1="594" x2="546" y2="594"/>
+<text class="er-tn" x="324" y="584">usuario</text>
+<rect class="er-b b-pk" x="322" y="597" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="331" y="607.5" text-anchor="middle">PK</text>
+<text class="er-r" x="366" y="608">usuario_id</text>
+<path class="er-co" d="M331,619 L336,624 L331,629 L326,624 Z"/>
+<text class="er-r er-r-co" x="366" y="628">comercio_id</text>
+<rect class="er-b b-fk" x="322" y="637" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="647.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="648">codigo_rol</text>
+<rect class="er-b b-uq" x="322" y="657" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="331" y="667.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="366" y="668">correo_electronico</text>
+<text class="er-ft" x="366" y="688">+4 columnas más</text>
+</a>
+<a class="er-a" href="#t-municipio_zona_climatica" aria-label="municipio_zona_climatica: ver sus columnas">
+<rect class="er-box" x="314" y="256" width="232" height="116" rx="5"/>
+<path class="er-hd a1" d="M314,286 V261 Q314,256 319,256 H541 Q546,256 546,261 V286 Z"/>
+<line class="er-sep" x1="314" y1="286" x2="546" y2="286"/>
+<text class="er-tn" x="324" y="276">municipio_zona_climatica</text>
+<rect class="er-b b-pk" x="322" y="289" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="331" y="299.5" text-anchor="middle">PK</text>
+<text class="er-r" x="366" y="300">municipio_zona_id</text>
+<rect class="er-b b-uq" x="322" y="309" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="331" y="319.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="366" y="320">entidad_federativa</text>
+<rect class="er-b b-uq" x="322" y="329" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="331" y="339.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="366" y="340">municipio</text>
+<text class="er-ft" x="366" y="360">+6 columnas más</text>
+</a>
+<a class="er-a" href="#t-categoria" aria-label="categoria: ver sus columnas">
+<rect class="er-box" x="24" y="40" width="232" height="116" rx="5"/>
+<path class="er-hd a2" d="M24,70 V45 Q24,40 29,40 H251 Q256,40 256,45 V70 Z"/>
+<line class="er-sep" x1="24" y1="70" x2="256" y2="70"/>
+<text class="er-tn" x="34" y="60">categoria</text>
+<rect class="er-b b-pk" x="32" y="73" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="41" y="83.5" text-anchor="middle">PK</text>
+<text class="er-r" x="76" y="84">categoria_id</text>
+<path class="er-co" d="M41,95 L46,100 L41,105 L36,100 Z"/>
+<text class="er-r er-r-co" x="76" y="104">comercio_id</text>
+<rect class="er-b b-uq" x="32" y="113" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="41" y="123.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="76" y="124">nombre_categoria</text>
+<text class="er-ft" x="76" y="144">+2 columnas más</text>
+</a>
+<a class="er-a" href="#t-temporada" aria-label="temporada: ver sus columnas">
+<rect class="er-box" x="24" y="184" width="232" height="116" rx="5"/>
+<path class="er-hd a2" d="M24,214 V189 Q24,184 29,184 H251 Q256,184 256,189 V214 Z"/>
+<line class="er-sep" x1="24" y1="214" x2="256" y2="214"/>
+<text class="er-tn" x="34" y="204">temporada</text>
+<rect class="er-b b-pk" x="32" y="217" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="41" y="227.5" text-anchor="middle">PK</text>
+<text class="er-r" x="76" y="228">temporada_id</text>
+<path class="er-co" d="M41,239 L46,244 L41,249 L36,244 Z"/>
+<text class="er-r er-r-co" x="76" y="248">comercio_id</text>
+<rect class="er-b b-uq" x="32" y="257" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="41" y="267.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="76" y="268">nombre_temporada</text>
+<text class="er-ft" x="76" y="288">+4 columnas más</text>
+</a>
+<a class="er-a" href="#t-unidad_medida" aria-label="unidad_medida: ver sus columnas">
+<rect class="er-box" x="24" y="328" width="232" height="76" rx="5"/>
+<path class="er-hd a2" d="M24,358 V333 Q24,328 29,328 H251 Q256,328 256,333 V358 Z"/>
+<line class="er-sep" x1="24" y1="358" x2="256" y2="358"/>
+<text class="er-tn" x="34" y="348">unidad_medida</text>
+<rect class="er-b b-pk" x="32" y="361" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="41" y="371.5" text-anchor="middle">PK</text>
+<text class="er-r" x="76" y="372">codigo_unidad</text>
+<text class="er-ft" x="76" y="392">+2 columnas más</text>
+</a>
+<a class="er-a" href="#t-producto" aria-label="producto: ver sus columnas">
+<rect class="er-box" x="314" y="40" width="232" height="176" rx="5"/>
+<path class="er-hd a2" d="M314,70 V45 Q314,40 319,40 H541 Q546,40 546,45 V70 Z"/>
+<line class="er-sep" x1="314" y1="70" x2="546" y2="70"/>
+<text class="er-tn" x="324" y="60">producto</text>
+<rect class="er-b b-pk" x="322" y="73" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="331" y="83.5" text-anchor="middle">PK</text>
+<text class="er-r" x="366" y="84">producto_id</text>
+<path class="er-co" d="M331,95 L336,100 L331,105 L326,100 Z"/>
+<text class="er-r er-r-co" x="366" y="104">comercio_id</text>
+<rect class="er-b b-uq" x="322" y="113" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="331" y="123.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="366" y="124">codigo_sku</text>
+<rect class="er-b b-fk" x="322" y="133" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="143.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="144">categoria_id</text>
+<rect class="er-b b-fk" x="322" y="153" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="163.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="164">temporada_id</text>
+<rect class="er-b b-fk" x="322" y="173" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="183.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="184">codigo_unidad</text>
+<text class="er-ft" x="366" y="204">+12 columnas más</text>
+</a>
+<a class="er-a" href="#t-venta" aria-label="venta: ver sus columnas">
+<rect class="er-box" x="916" y="40" width="232" height="116" rx="5"/>
+<path class="er-hd a3" d="M916,70 V45 Q916,40 921,40 H1143 Q1148,40 1148,45 V70 Z"/>
+<line class="er-sep" x1="916" y1="70" x2="1148" y2="70"/>
+<text class="er-tn" x="926" y="60">venta</text>
+<rect class="er-b b-pk" x="924" y="73" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="933" y="83.5" text-anchor="middle">PK</text>
+<text class="er-r" x="968" y="84">venta_id</text>
+<path class="er-co" d="M933,95 L938,100 L933,105 L928,100 Z"/>
+<text class="er-r er-r-co" x="968" y="104">comercio_id</text>
+<rect class="er-b b-uq" x="924" y="113" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="933" y="123.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="968" y="124">folio_ticket_pos</text>
+<text class="er-ft" x="968" y="144">+2 columnas más</text>
+</a>
+<a class="er-a" href="#t-detalle_venta" aria-label="detalle_venta: ver sus columnas">
+<rect class="er-box" x="626" y="40" width="232" height="96" rx="5"/>
+<path class="er-hd a3" d="M626,70 V45 Q626,40 631,40 H853 Q858,40 858,45 V70 Z"/>
+<line class="er-sep" x1="626" y1="70" x2="858" y2="70"/>
+<text class="er-tn" x="636" y="60">detalle_venta</text>
+<rect class="er-b b-pk" x="634" y="73" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="83.5" text-anchor="middle">PK</text><rect class="er-b b-fk" x="654" y="73" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="663" y="83.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="84">venta_id</text>
+<rect class="er-b b-pk" x="634" y="93" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="103.5" text-anchor="middle">PK</text><rect class="er-b b-fk" x="654" y="93" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="663" y="103.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="104">producto_id</text>
+<text class="er-ft" x="678" y="124">+3 columnas más</text>
+</a>
+<a class="er-a" href="#t-factura_proveedor" aria-label="factura_proveedor: ver sus columnas">
+<rect class="er-box" x="916" y="184" width="232" height="116" rx="5"/>
+<path class="er-hd a3" d="M916,214 V189 Q916,184 921,184 H1143 Q1148,184 1148,189 V214 Z"/>
+<line class="er-sep" x1="916" y1="214" x2="1148" y2="214"/>
+<text class="er-tn" x="926" y="204">factura_proveedor</text>
+<rect class="er-b b-pk" x="924" y="217" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="933" y="227.5" text-anchor="middle">PK</text>
+<text class="er-r" x="968" y="228">factura_id</text>
+<path class="er-co" d="M933,239 L938,244 L933,249 L928,244 Z"/>
+<text class="er-r er-r-co" x="968" y="248">comercio_id</text>
+<rect class="er-b b-fkx" x="924" y="257" width="18" height="14" rx="3"/><text class="er-bt b-fkx-t" x="933" y="267.5" text-anchor="middle">FK</text>
+<text class="er-r" x="968" y="268">recibida_por_usuario_id</text>
+<text class="er-ft" x="968" y="288">+5 columnas más</text>
+</a>
+<a class="er-a" href="#t-detalle_factura_proveedor" aria-label="detalle_factura_proveedor: ver sus columnas">
+<rect class="er-box" x="626" y="184" width="232" height="96" rx="5"/>
+<path class="er-hd a3" d="M626,214 V189 Q626,184 631,184 H853 Q858,184 858,189 V214 Z"/>
+<line class="er-sep" x1="626" y1="214" x2="858" y2="214"/>
+<text class="er-tn" x="636" y="204">detalle_factura_proveedor</text>
+<rect class="er-b b-pk" x="634" y="217" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="227.5" text-anchor="middle">PK</text><rect class="er-b b-fk" x="654" y="217" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="663" y="227.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="228">factura_id</text>
+<rect class="er-b b-pk" x="634" y="237" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="247.5" text-anchor="middle">PK</text><rect class="er-b b-fk" x="654" y="237" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="663" y="247.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="248">producto_id</text>
+<text class="er-ft" x="678" y="268">+4 columnas más</text>
+</a>
+<a class="er-a" href="#t-conciliacion_inventario" aria-label="conciliacion_inventario: ver sus columnas">
+<rect class="er-box" x="626" y="472" width="232" height="136" rx="5"/>
+<path class="er-hd a4" d="M626,502 V477 Q626,472 631,472 H853 Q858,472 858,477 V502 Z"/>
+<line class="er-sep" x1="626" y1="502" x2="858" y2="502"/>
+<text class="er-tn" x="636" y="492">conciliacion_inventario</text>
+<rect class="er-b b-pk" x="634" y="505" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="515.5" text-anchor="middle">PK</text>
+<text class="er-r" x="678" y="516">conciliacion_id</text>
+<path class="er-co" d="M643,527 L648,532 L643,537 L638,532 Z"/>
+<text class="er-r er-r-co" x="678" y="536">comercio_id</text>
+<rect class="er-b b-fk" x="634" y="545" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="555.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="556">producto_id</text>
+<rect class="er-b b-fkx" x="634" y="565" width="18" height="14" rx="3"/><text class="er-bt b-fkx-t" x="643" y="575.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="576">confirmado_por_usuario_id</text>
+<text class="er-ft" x="678" y="596">+6 columnas más</text>
+</a>
+<a class="er-a" href="#t-fuente_precio_publica" aria-label="fuente_precio_publica: ver sus columnas">
+<rect class="er-box" x="916" y="368" width="232" height="96" rx="5"/>
+<path class="er-hd a4" d="M916,398 V373 Q916,368 921,368 H1143 Q1148,368 1148,373 V398 Z"/>
+<line class="er-sep" x1="916" y1="398" x2="1148" y2="398"/>
+<text class="er-tn" x="926" y="388">fuente_precio_publica</text>
+<rect class="er-b b-pk" x="924" y="401" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="933" y="411.5" text-anchor="middle">PK</text>
+<text class="er-r" x="968" y="412">fuente_id</text>
+<rect class="er-b b-uq" x="924" y="421" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="933" y="431.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="968" y="432">nombre_fuente</text>
+<text class="er-ft" x="968" y="452">+4 columnas más</text>
+</a>
+<a class="er-a" href="#t-referencia_precio_mercado" aria-label="referencia_precio_mercado: ver sus columnas">
+<rect class="er-box" x="626" y="328" width="232" height="116" rx="5"/>
+<path class="er-hd a4" d="M626,358 V333 Q626,328 631,328 H853 Q858,328 858,333 V358 Z"/>
+<line class="er-sep" x1="626" y1="358" x2="858" y2="358"/>
+<text class="er-tn" x="636" y="348">referencia_precio_mercado</text>
+<rect class="er-b b-pk" x="634" y="361" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="371.5" text-anchor="middle">PK</text>
+<text class="er-r" x="678" y="372">referencia_id</text>
+<rect class="er-b b-fk" x="634" y="381" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="391.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="392">producto_id</text>
+<rect class="er-b b-fk" x="634" y="401" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="411.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="412">fuente_id</text>
+<text class="er-ft" x="678" y="432">+6 columnas más</text>
+</a>
+<a class="er-a" href="#t-corrida_nocturna" aria-label="corrida_nocturna: ver sus columnas">
+<rect class="er-box" x="916" y="676" width="232" height="96" rx="5"/>
+<path class="er-hd a5" d="M916,706 V681 Q916,676 921,676 H1143 Q1148,676 1148,681 V706 Z"/>
+<line class="er-sep" x1="916" y1="706" x2="1148" y2="706"/>
+<text class="er-tn" x="926" y="696">corrida_nocturna</text>
+<rect class="er-b b-pk" x="924" y="709" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="933" y="719.5" text-anchor="middle">PK</text>
+<text class="er-r" x="968" y="720">corrida_id</text>
+<path class="er-co" d="M933,731 L938,736 L933,741 L928,736 Z"/>
+<text class="er-r er-r-co" x="968" y="740">comercio_id</text>
+<text class="er-ft" x="968" y="760">+4 columnas más</text>
+</a>
+<a class="er-a" href="#t-recomendacion" aria-label="recomendacion: ver sus columnas">
+<rect class="er-box" x="626" y="656" width="232" height="176" rx="5"/>
+<path class="er-hd a5" d="M626,686 V661 Q626,656 631,656 H853 Q858,656 858,661 V686 Z"/>
+<line class="er-sep" x1="626" y1="686" x2="858" y2="686"/>
+<text class="er-tn" x="636" y="676">recomendacion</text>
+<rect class="er-b b-pk" x="634" y="689" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="699.5" text-anchor="middle">PK</text>
+<text class="er-r" x="678" y="700">recomendacion_id</text>
+<rect class="er-b b-fk" x="634" y="709" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="719.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="720">corrida_id</text>
+<rect class="er-b b-fk" x="634" y="729" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="739.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="740">producto_id</text>
+<rect class="er-b b-fk" x="634" y="749" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="759.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="760">conciliacion_id</text>
+<rect class="er-b b-fk" x="634" y="769" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="779.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="780">recomendacion_anterior_id</text>
+<rect class="er-b b-fkx" x="634" y="789" width="18" height="14" rx="3"/><text class="er-bt b-fkx-t" x="643" y="799.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="800">decidido_por_usuario_id</text>
+<text class="er-ft" x="678" y="820">+21 columnas más</text>
+</a>
+<a class="er-a" href="#t-recomendacion_referencia" aria-label="recomendacion_referencia: ver sus columnas">
+<rect class="er-box" x="916" y="496" width="232" height="96" rx="5"/>
+<path class="er-hd a5" d="M916,526 V501 Q916,496 921,496 H1143 Q1148,496 1148,501 V526 Z"/>
+<line class="er-sep" x1="916" y1="526" x2="1148" y2="526"/>
+<text class="er-tn" x="926" y="516">recomendacion_referencia</text>
+<rect class="er-b b-pk" x="924" y="529" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="933" y="539.5" text-anchor="middle">PK</text><rect class="er-b b-fk" x="944" y="529" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="953" y="539.5" text-anchor="middle">FK</text>
+<text class="er-r" x="968" y="540">referencia_id</text>
+<rect class="er-b b-pk" x="924" y="549" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="933" y="559.5" text-anchor="middle">PK</text><rect class="er-b b-fk" x="944" y="549" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="953" y="559.5" text-anchor="middle">FK</text>
+<text class="er-r" x="968" y="560">recomendacion_id</text>
+<rect class="er-b b-fkx" x="924" y="569" width="18" height="14" rx="3"/><text class="er-bt b-fkx-t" x="933" y="579.5" text-anchor="middle">FK</text>
+<text class="er-r" x="968" y="580">producto_id</text>
+</a>
+<a class="er-a" href="#t-campana" aria-label="campana: ver sus columnas">
+<rect class="er-box" x="626" y="892" width="232" height="116" rx="5"/>
+<path class="er-hd a6" d="M626,922 V897 Q626,892 631,892 H853 Q858,892 858,897 V922 Z"/>
+<line class="er-sep" x1="626" y1="922" x2="858" y2="922"/>
+<text class="er-tn" x="636" y="912">campana</text>
+<rect class="er-b b-pk" x="634" y="925" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="935.5" text-anchor="middle">PK</text>
+<text class="er-r" x="678" y="936">campana_id</text>
+<path class="er-co" d="M643,947 L648,952 L643,957 L638,952 Z"/>
+<text class="er-r er-r-co" x="678" y="956">comercio_id</text>
+<rect class="er-b b-fk" x="634" y="965" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="975.5" text-anchor="middle">FK</text><rect class="er-b b-uq" x="654" y="965" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="663" y="975.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="678" y="976">recomendacion_id</text>
+<text class="er-ft" x="678" y="996">+9 columnas más</text>
+</a>
+<a class="er-a" href="#t-cliente" aria-label="cliente: ver sus columnas">
+<rect class="er-box" x="24" y="912" width="232" height="96" rx="5"/>
+<path class="er-hd a6" d="M24,942 V917 Q24,912 29,912 H251 Q256,912 256,917 V942 Z"/>
+<line class="er-sep" x1="24" y1="942" x2="256" y2="942"/>
+<text class="er-tn" x="34" y="932">cliente</text>
+<rect class="er-b b-pk" x="32" y="945" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="41" y="955.5" text-anchor="middle">PK</text>
+<text class="er-r" x="76" y="956">cliente_id</text>
+<path class="er-co" d="M41,967 L46,972 L41,977 L36,972 Z"/>
+<text class="er-r er-r-co" x="76" y="976">comercio_id</text>
+<text class="er-ft" x="76" y="996">+6 columnas más</text>
+</a>
+<a class="er-a" href="#t-envio_campana" aria-label="envio_campana: ver sus columnas">
+<rect class="er-box" x="314" y="872" width="232" height="116" rx="5"/>
+<path class="er-hd a6" d="M314,902 V877 Q314,872 319,872 H541 Q546,872 546,877 V902 Z"/>
+<line class="er-sep" x1="314" y1="902" x2="546" y2="902"/>
+<text class="er-tn" x="324" y="892">envio_campana</text>
+<rect class="er-b b-pk" x="322" y="905" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="331" y="915.5" text-anchor="middle">PK</text>
+<text class="er-r" x="366" y="916">envio_id</text>
+<rect class="er-b b-fk" x="322" y="925" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="935.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="936">campana_id</text>
+<rect class="er-b b-fk" x="322" y="945" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="955.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="956">cliente_id</text>
+<text class="er-ft" x="366" y="976">+2 columnas más</text>
+</a><rect class="er-legend" x="24" y="440" width="232" height="397" rx="6"/><text class="er-lt" x="36" y="464">Cómo leer el diagrama</text><rect class="er-b b-pk" x="36" y="475" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="45" y="485.5" text-anchor="middle">PK</text><text class="er-l" x="64" y="486">llave primaria</text><rect class="er-b b-fk" x="36" y="496" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="45" y="506.5" text-anchor="middle">FK</text><text class="er-l" x="64" y="507">llave foránea con línea</text><rect class="er-b b-fkx" x="36" y="517" width="18" height="14" rx="3"/><text class="er-bt b-fkx-t" x="45" y="527.5" text-anchor="middle">FK</text><text class="er-l" x="64" y="528">llave foránea sin línea</text><rect class="er-b b-uq" x="36" y="538" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="45" y="548.5" text-anchor="middle">UQ</text><text class="er-l" x="64" y="549">valor único</text><path class="er-co" d="M45,561 L50,566 L45,571 L40,566 Z"/><text class="er-l" x="64" y="570">comercio_id (entidad fuerte)</text><line class="er-e" x1="36" y1="593" x2="76" y2="593"/><line class="er-sep" x1="76" y1="585" x2="76" y2="601"/><line class="er-m" x1="71" y1="588" x2="71" y2="598"/><line class="er-m" x1="67" y1="588" x2="67" y2="598"/><text class="er-l" x="88" y="597">exactamente uno</text><line class="er-e" x1="36" y1="614" x2="76" y2="614"/><line class="er-sep" x1="76" y1="606" x2="76" y2="622"/><line class="er-m" x1="71" y1="609" x2="71" y2="619"/><circle class="er-o" cx="63" cy="614" r="3"/><text class="er-l" x="88" y="618">cero o uno</text><line class="er-e" x1="36" y1="635" x2="76" y2="635"/><line class="er-sep" x1="76" y1="627" x2="76" y2="643"/><path class="er-m" fill="none" d="M67,635 L76,630 M67,635 L76,640"/><circle class="er-o" cx="63" cy="635" r="3"/><text class="er-l" x="88" y="639">cero o muchos</text><rect class="er-hd a1 er-chip" x="36" y="656" width="18" height="12" rx="2"/><text class="er-l" x="64" y="666">Comercio y usuarios</text><rect class="er-hd a2 er-chip" x="36" y="675" width="18" height="12" rx="2"/><text class="er-l" x="64" y="685">Catálogo</text><rect class="er-hd a3 er-chip" x="36" y="694" width="18" height="12" rx="2"/><text class="er-l" x="64" y="704">Ventas y compras</text><rect class="er-hd a4 er-chip" x="36" y="713" width="18" height="12" rx="2"/><text class="er-l" x="64" y="723">Inventario y mercado</text><rect class="er-hd a5 er-chip" x="36" y="732" width="18" height="12" rx="2"/><text class="er-l" x="64" y="742">Recomendación</text><rect class="er-hd a6 er-chip" x="36" y="751" width="18" height="12" rx="2"/><text class="er-l" x="64" y="761">Campañas</text><text class="er-ft" x="36" y="788">Las llaves hacia comercio y usuario</text><text class="er-ft" x="36" y="803">no se dibujan: las llevan 10 y 3 tablas.</text><text class="er-ft" x="36" y="818">Columnas completas: en la maqueta.</text></svg>
+</section>
+<section class="hoja hoja-2">
+  <svg class="er" viewBox="586 30 576 988" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Modelo entidad-relación de Anaquel: 21 tablas y sus llaves foráneas."><rect class="er-bg" x="0" y="0" width="1172" height="1040"/><path class="er-e" fill="none" d="M256,80 L276,80 L276,140 L314,140"/><line class="er-m" x1="261" y1="75" x2="261" y2="85"/><circle class="er-o" cx="269" cy="80" r="3"/><path class="er-m" fill="none" d="M305,140 L314,135 M305,140 L314,145"/><circle class="er-o" cx="301" cy="140" r="3"/>
+<path class="er-e" fill="none" d="M256,224 L284,224 L284,160 L314,160"/><line class="er-m" x1="261" y1="219" x2="261" y2="229"/><circle class="er-o" cx="269" cy="224" r="3"/><path class="er-m" fill="none" d="M305,160 L314,155 M305,160 L314,165"/><circle class="er-o" cx="301" cy="160" r="3"/>
+<path class="er-e" fill="none" d="M256,368 L292,368 L292,180 L314,180"/><line class="er-m" x1="261" y1="363" x2="261" y2="373"/><line class="er-m" x1="265" y1="363" x2="265" y2="373"/><path class="er-m" fill="none" d="M305,180 L314,175 M305,180 L314,185"/><circle class="er-o" cx="301" cy="180" r="3"/>
+<path class="er-e" fill="none" d="M546,80 L566,80 L566,736"/>
+<path class="er-e" fill="none" d="M566,100 L626,100"/><line class="er-m" x1="571" y1="95" x2="571" y2="105"/><line class="er-m" x1="575" y1="95" x2="575" y2="105"/><path class="er-m" fill="none" d="M617,100 L626,95 M617,100 L626,105"/><circle class="er-o" cx="613" cy="100" r="3"/>
+<path class="er-e" fill="none" d="M566,244 L626,244"/><line class="er-m" x1="571" y1="239" x2="571" y2="249"/><line class="er-m" x1="575" y1="239" x2="575" y2="249"/><path class="er-m" fill="none" d="M617,244 L626,239 M617,244 L626,249"/><circle class="er-o" cx="613" cy="244" r="3"/>
+<path class="er-e" fill="none" d="M566,388 L626,388"/><line class="er-m" x1="571" y1="383" x2="571" y2="393"/><line class="er-m" x1="575" y1="383" x2="575" y2="393"/><path class="er-m" fill="none" d="M617,388 L626,383 M617,388 L626,393"/><circle class="er-o" cx="613" cy="388" r="3"/>
+<path class="er-e" fill="none" d="M566,552 L626,552"/><line class="er-m" x1="571" y1="547" x2="571" y2="557"/><line class="er-m" x1="575" y1="547" x2="575" y2="557"/><path class="er-m" fill="none" d="M617,552 L626,547 M617,552 L626,557"/><circle class="er-o" cx="613" cy="552" r="3"/>
+<path class="er-e" fill="none" d="M566,736 L626,736"/><line class="er-m" x1="571" y1="731" x2="571" y2="741"/><line class="er-m" x1="575" y1="731" x2="575" y2="741"/><path class="er-m" fill="none" d="M617,736 L626,731 M617,736 L626,741"/><circle class="er-o" cx="613" cy="736" r="3"/>
+<path class="er-e" fill="none" d="M916,80 L858,80"/><line class="er-m" x1="911" y1="75" x2="911" y2="85"/><line class="er-m" x1="907" y1="75" x2="907" y2="85"/><path class="er-m" fill="none" d="M867,80 L858,75 M867,80 L858,85"/><circle class="er-o" cx="871" cy="80" r="3"/>
+<path class="er-e" fill="none" d="M916,224 L858,224"/><line class="er-m" x1="911" y1="219" x2="911" y2="229"/><line class="er-m" x1="907" y1="219" x2="907" y2="229"/><path class="er-m" fill="none" d="M867,224 L858,219 M867,224 L858,229"/><circle class="er-o" cx="871" cy="224" r="3"/>
+<path class="er-e" fill="none" d="M916,408 L858,408"/><line class="er-m" x1="911" y1="403" x2="911" y2="413"/><line class="er-m" x1="907" y1="403" x2="907" y2="413"/><path class="er-m" fill="none" d="M867,408 L858,403 M867,408 L858,413"/><circle class="er-o" cx="871" cy="408" r="3"/>
+<path class="er-e" fill="none" d="M916,716 L858,716"/><line class="er-m" x1="911" y1="711" x2="911" y2="721"/><line class="er-m" x1="907" y1="711" x2="907" y2="721"/><path class="er-m" fill="none" d="M867,716 L858,711 M867,716 L858,721"/><circle class="er-o" cx="871" cy="716" r="3"/>
+<path class="er-e" fill="none" d="M626,932 L546,932"/><line class="er-m" x1="621" y1="927" x2="621" y2="937"/><line class="er-m" x1="617" y1="927" x2="617" y2="937"/><path class="er-m" fill="none" d="M555,932 L546,927 M555,932 L546,937"/><circle class="er-o" cx="559" cy="932" r="3"/>
+<path class="er-e" fill="none" d="M256,952 L314,952"/><line class="er-m" x1="261" y1="947" x2="261" y2="957"/><line class="er-m" x1="265" y1="947" x2="265" y2="957"/><path class="er-m" fill="none" d="M305,952 L314,947 M305,952 L314,957"/><circle class="er-o" cx="301" cy="952" r="3"/>
+<path class="er-e" fill="none" d="M858,434 L878,434 L878,536 L916,536"/><line class="er-m" x1="863" y1="429" x2="863" y2="439"/><line class="er-m" x1="867" y1="429" x2="867" y2="439"/><path class="er-m" fill="none" d="M907,536 L916,531 M907,536 L916,541"/><circle class="er-o" cx="903" cy="536" r="3"/>
+<path class="er-e" fill="none" d="M858,696 L886,696 L886,556 L916,556"/><line class="er-m" x1="863" y1="691" x2="863" y2="701"/><line class="er-m" x1="867" y1="691" x2="867" y2="701"/><path class="er-m" fill="none" d="M907,556 L916,551 M907,556 L916,561"/><circle class="er-o" cx="903" cy="556" r="3"/>
+<path class="er-e" fill="none" d="M742,608 L742,656"/><line class="er-m" x1="737" y1="613" x2="747" y2="613"/><line class="er-m" x1="737" y1="617" x2="747" y2="617"/><path class="er-m" fill="none" d="M742,647 L737,656 M742,647 L747,656"/><circle class="er-o" cx="742" cy="643" r="3"/>
+<path class="er-e" fill="none" d="M742,832 L742,892"/><line class="er-m" x1="737" y1="837" x2="747" y2="837"/><line class="er-m" x1="737" y1="841" x2="747" y2="841"/><line class="er-m" x1="737" y1="887" x2="747" y2="887"/><circle class="er-o" cx="742" cy="879" r="3"/>
+<path class="er-e" fill="none" d="M430,372 L430,420"/><line class="er-m" x1="425" y1="377" x2="435" y2="377"/><circle class="er-o" cx="430" cy="385" r="3"/><path class="er-m" fill="none" d="M430,411 L425,420 M430,411 L435,420"/><circle class="er-o" cx="430" cy="407" r="3"/>
+<path class="er-e" fill="none" d="M430,748 L430,700"/><line class="er-m" x1="425" y1="743" x2="435" y2="743"/><line class="er-m" x1="425" y1="739" x2="435" y2="739"/><path class="er-m" fill="none" d="M430,709 L425,700 M430,709 L435,700"/><circle class="er-o" cx="430" cy="713" r="3"/>
+<path class="er-e" fill="none" d="M662,832 L662,860 L600,860 L600,776 L626,776"/><line class="er-m" x1="657" y1="837" x2="667" y2="837"/><circle class="er-o" cx="662" cy="845" r="3"/><path class="er-m" fill="none" d="M617,776 L626,771 M617,776 L626,781"/><circle class="er-o" cx="613" cy="776" r="3"/><text class="er-el" x="751" y="636">conciliacion_id</text><text class="er-el" x="751" y="866">recomendacion_id · 1 a 0..1</text><text class="er-el" x="439" y="400">municipio_zona_id</text><text class="er-el" x="439" y="728">codigo_rol</text><a class="er-a" href="#t-comercio" aria-label="comercio: ver sus columnas">
+<rect class="er-box" x="314" y="420" width="232" height="116" rx="5"/>
+<path class="er-hd a1" d="M314,450 V425 Q314,420 319,420 H541 Q546,420 546,425 V450 Z"/>
+<line class="er-sep" x1="314" y1="450" x2="546" y2="450"/>
+<text class="er-tn" x="324" y="440">comercio</text>
+<rect class="er-b b-pk" x="322" y="453" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="331" y="463.5" text-anchor="middle">PK</text>
+<text class="er-r" x="366" y="464">comercio_id</text>
+<rect class="er-b b-fk" x="322" y="473" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="483.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="484">municipio_zona_id</text>
+<rect class="er-b b-uq" x="322" y="493" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="331" y="503.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="366" y="504">rfc</text>
+<text class="er-ft" x="366" y="524">+7 columnas más</text>
+</a>
+<a class="er-a" href="#t-rol" aria-label="rol: ver sus columnas">
+<rect class="er-box" x="314" y="748" width="232" height="76" rx="5"/>
+<path class="er-hd a1" d="M314,778 V753 Q314,748 319,748 H541 Q546,748 546,753 V778 Z"/>
+<line class="er-sep" x1="314" y1="778" x2="546" y2="778"/>
+<text class="er-tn" x="324" y="768">rol</text>
+<rect class="er-b b-pk" x="322" y="781" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="331" y="791.5" text-anchor="middle">PK</text>
+<text class="er-r" x="366" y="792">codigo_rol</text>
+<text class="er-ft" x="366" y="812">+1 columna más</text>
+</a>
+<a class="er-a" href="#t-usuario" aria-label="usuario: ver sus columnas">
+<rect class="er-box" x="314" y="564" width="232" height="136" rx="5"/>
+<path class="er-hd a1" d="M314,594 V569 Q314,564 319,564 H541 Q546,564 546,569 V594 Z"/>
+<line class="er-sep" x1="314" y1="594" x2="546" y2="594"/>
+<text class="er-tn" x="324" y="584">usuario</text>
+<rect class="er-b b-pk" x="322" y="597" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="331" y="607.5" text-anchor="middle">PK</text>
+<text class="er-r" x="366" y="608">usuario_id</text>
+<path class="er-co" d="M331,619 L336,624 L331,629 L326,624 Z"/>
+<text class="er-r er-r-co" x="366" y="628">comercio_id</text>
+<rect class="er-b b-fk" x="322" y="637" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="647.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="648">codigo_rol</text>
+<rect class="er-b b-uq" x="322" y="657" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="331" y="667.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="366" y="668">correo_electronico</text>
+<text class="er-ft" x="366" y="688">+4 columnas más</text>
+</a>
+<a class="er-a" href="#t-municipio_zona_climatica" aria-label="municipio_zona_climatica: ver sus columnas">
+<rect class="er-box" x="314" y="256" width="232" height="116" rx="5"/>
+<path class="er-hd a1" d="M314,286 V261 Q314,256 319,256 H541 Q546,256 546,261 V286 Z"/>
+<line class="er-sep" x1="314" y1="286" x2="546" y2="286"/>
+<text class="er-tn" x="324" y="276">municipio_zona_climatica</text>
+<rect class="er-b b-pk" x="322" y="289" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="331" y="299.5" text-anchor="middle">PK</text>
+<text class="er-r" x="366" y="300">municipio_zona_id</text>
+<rect class="er-b b-uq" x="322" y="309" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="331" y="319.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="366" y="320">entidad_federativa</text>
+<rect class="er-b b-uq" x="322" y="329" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="331" y="339.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="366" y="340">municipio</text>
+<text class="er-ft" x="366" y="360">+6 columnas más</text>
+</a>
+<a class="er-a" href="#t-categoria" aria-label="categoria: ver sus columnas">
+<rect class="er-box" x="24" y="40" width="232" height="116" rx="5"/>
+<path class="er-hd a2" d="M24,70 V45 Q24,40 29,40 H251 Q256,40 256,45 V70 Z"/>
+<line class="er-sep" x1="24" y1="70" x2="256" y2="70"/>
+<text class="er-tn" x="34" y="60">categoria</text>
+<rect class="er-b b-pk" x="32" y="73" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="41" y="83.5" text-anchor="middle">PK</text>
+<text class="er-r" x="76" y="84">categoria_id</text>
+<path class="er-co" d="M41,95 L46,100 L41,105 L36,100 Z"/>
+<text class="er-r er-r-co" x="76" y="104">comercio_id</text>
+<rect class="er-b b-uq" x="32" y="113" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="41" y="123.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="76" y="124">nombre_categoria</text>
+<text class="er-ft" x="76" y="144">+2 columnas más</text>
+</a>
+<a class="er-a" href="#t-temporada" aria-label="temporada: ver sus columnas">
+<rect class="er-box" x="24" y="184" width="232" height="116" rx="5"/>
+<path class="er-hd a2" d="M24,214 V189 Q24,184 29,184 H251 Q256,184 256,189 V214 Z"/>
+<line class="er-sep" x1="24" y1="214" x2="256" y2="214"/>
+<text class="er-tn" x="34" y="204">temporada</text>
+<rect class="er-b b-pk" x="32" y="217" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="41" y="227.5" text-anchor="middle">PK</text>
+<text class="er-r" x="76" y="228">temporada_id</text>
+<path class="er-co" d="M41,239 L46,244 L41,249 L36,244 Z"/>
+<text class="er-r er-r-co" x="76" y="248">comercio_id</text>
+<rect class="er-b b-uq" x="32" y="257" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="41" y="267.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="76" y="268">nombre_temporada</text>
+<text class="er-ft" x="76" y="288">+4 columnas más</text>
+</a>
+<a class="er-a" href="#t-unidad_medida" aria-label="unidad_medida: ver sus columnas">
+<rect class="er-box" x="24" y="328" width="232" height="76" rx="5"/>
+<path class="er-hd a2" d="M24,358 V333 Q24,328 29,328 H251 Q256,328 256,333 V358 Z"/>
+<line class="er-sep" x1="24" y1="358" x2="256" y2="358"/>
+<text class="er-tn" x="34" y="348">unidad_medida</text>
+<rect class="er-b b-pk" x="32" y="361" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="41" y="371.5" text-anchor="middle">PK</text>
+<text class="er-r" x="76" y="372">codigo_unidad</text>
+<text class="er-ft" x="76" y="392">+2 columnas más</text>
+</a>
+<a class="er-a" href="#t-producto" aria-label="producto: ver sus columnas">
+<rect class="er-box" x="314" y="40" width="232" height="176" rx="5"/>
+<path class="er-hd a2" d="M314,70 V45 Q314,40 319,40 H541 Q546,40 546,45 V70 Z"/>
+<line class="er-sep" x1="314" y1="70" x2="546" y2="70"/>
+<text class="er-tn" x="324" y="60">producto</text>
+<rect class="er-b b-pk" x="322" y="73" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="331" y="83.5" text-anchor="middle">PK</text>
+<text class="er-r" x="366" y="84">producto_id</text>
+<path class="er-co" d="M331,95 L336,100 L331,105 L326,100 Z"/>
+<text class="er-r er-r-co" x="366" y="104">comercio_id</text>
+<rect class="er-b b-uq" x="322" y="113" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="331" y="123.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="366" y="124">codigo_sku</text>
+<rect class="er-b b-fk" x="322" y="133" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="143.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="144">categoria_id</text>
+<rect class="er-b b-fk" x="322" y="153" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="163.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="164">temporada_id</text>
+<rect class="er-b b-fk" x="322" y="173" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="183.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="184">codigo_unidad</text>
+<text class="er-ft" x="366" y="204">+12 columnas más</text>
+</a>
+<a class="er-a" href="#t-venta" aria-label="venta: ver sus columnas">
+<rect class="er-box" x="916" y="40" width="232" height="116" rx="5"/>
+<path class="er-hd a3" d="M916,70 V45 Q916,40 921,40 H1143 Q1148,40 1148,45 V70 Z"/>
+<line class="er-sep" x1="916" y1="70" x2="1148" y2="70"/>
+<text class="er-tn" x="926" y="60">venta</text>
+<rect class="er-b b-pk" x="924" y="73" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="933" y="83.5" text-anchor="middle">PK</text>
+<text class="er-r" x="968" y="84">venta_id</text>
+<path class="er-co" d="M933,95 L938,100 L933,105 L928,100 Z"/>
+<text class="er-r er-r-co" x="968" y="104">comercio_id</text>
+<rect class="er-b b-uq" x="924" y="113" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="933" y="123.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="968" y="124">folio_ticket_pos</text>
+<text class="er-ft" x="968" y="144">+2 columnas más</text>
+</a>
+<a class="er-a" href="#t-detalle_venta" aria-label="detalle_venta: ver sus columnas">
+<rect class="er-box" x="626" y="40" width="232" height="96" rx="5"/>
+<path class="er-hd a3" d="M626,70 V45 Q626,40 631,40 H853 Q858,40 858,45 V70 Z"/>
+<line class="er-sep" x1="626" y1="70" x2="858" y2="70"/>
+<text class="er-tn" x="636" y="60">detalle_venta</text>
+<rect class="er-b b-pk" x="634" y="73" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="83.5" text-anchor="middle">PK</text><rect class="er-b b-fk" x="654" y="73" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="663" y="83.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="84">venta_id</text>
+<rect class="er-b b-pk" x="634" y="93" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="103.5" text-anchor="middle">PK</text><rect class="er-b b-fk" x="654" y="93" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="663" y="103.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="104">producto_id</text>
+<text class="er-ft" x="678" y="124">+3 columnas más</text>
+</a>
+<a class="er-a" href="#t-factura_proveedor" aria-label="factura_proveedor: ver sus columnas">
+<rect class="er-box" x="916" y="184" width="232" height="116" rx="5"/>
+<path class="er-hd a3" d="M916,214 V189 Q916,184 921,184 H1143 Q1148,184 1148,189 V214 Z"/>
+<line class="er-sep" x1="916" y1="214" x2="1148" y2="214"/>
+<text class="er-tn" x="926" y="204">factura_proveedor</text>
+<rect class="er-b b-pk" x="924" y="217" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="933" y="227.5" text-anchor="middle">PK</text>
+<text class="er-r" x="968" y="228">factura_id</text>
+<path class="er-co" d="M933,239 L938,244 L933,249 L928,244 Z"/>
+<text class="er-r er-r-co" x="968" y="248">comercio_id</text>
+<rect class="er-b b-fkx" x="924" y="257" width="18" height="14" rx="3"/><text class="er-bt b-fkx-t" x="933" y="267.5" text-anchor="middle">FK</text>
+<text class="er-r" x="968" y="268">recibida_por_usuario_id</text>
+<text class="er-ft" x="968" y="288">+5 columnas más</text>
+</a>
+<a class="er-a" href="#t-detalle_factura_proveedor" aria-label="detalle_factura_proveedor: ver sus columnas">
+<rect class="er-box" x="626" y="184" width="232" height="96" rx="5"/>
+<path class="er-hd a3" d="M626,214 V189 Q626,184 631,184 H853 Q858,184 858,189 V214 Z"/>
+<line class="er-sep" x1="626" y1="214" x2="858" y2="214"/>
+<text class="er-tn" x="636" y="204">detalle_factura_proveedor</text>
+<rect class="er-b b-pk" x="634" y="217" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="227.5" text-anchor="middle">PK</text><rect class="er-b b-fk" x="654" y="217" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="663" y="227.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="228">factura_id</text>
+<rect class="er-b b-pk" x="634" y="237" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="247.5" text-anchor="middle">PK</text><rect class="er-b b-fk" x="654" y="237" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="663" y="247.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="248">producto_id</text>
+<text class="er-ft" x="678" y="268">+4 columnas más</text>
+</a>
+<a class="er-a" href="#t-conciliacion_inventario" aria-label="conciliacion_inventario: ver sus columnas">
+<rect class="er-box" x="626" y="472" width="232" height="136" rx="5"/>
+<path class="er-hd a4" d="M626,502 V477 Q626,472 631,472 H853 Q858,472 858,477 V502 Z"/>
+<line class="er-sep" x1="626" y1="502" x2="858" y2="502"/>
+<text class="er-tn" x="636" y="492">conciliacion_inventario</text>
+<rect class="er-b b-pk" x="634" y="505" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="515.5" text-anchor="middle">PK</text>
+<text class="er-r" x="678" y="516">conciliacion_id</text>
+<path class="er-co" d="M643,527 L648,532 L643,537 L638,532 Z"/>
+<text class="er-r er-r-co" x="678" y="536">comercio_id</text>
+<rect class="er-b b-fk" x="634" y="545" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="555.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="556">producto_id</text>
+<rect class="er-b b-fkx" x="634" y="565" width="18" height="14" rx="3"/><text class="er-bt b-fkx-t" x="643" y="575.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="576">confirmado_por_usuario_id</text>
+<text class="er-ft" x="678" y="596">+6 columnas más</text>
+</a>
+<a class="er-a" href="#t-fuente_precio_publica" aria-label="fuente_precio_publica: ver sus columnas">
+<rect class="er-box" x="916" y="368" width="232" height="96" rx="5"/>
+<path class="er-hd a4" d="M916,398 V373 Q916,368 921,368 H1143 Q1148,368 1148,373 V398 Z"/>
+<line class="er-sep" x1="916" y1="398" x2="1148" y2="398"/>
+<text class="er-tn" x="926" y="388">fuente_precio_publica</text>
+<rect class="er-b b-pk" x="924" y="401" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="933" y="411.5" text-anchor="middle">PK</text>
+<text class="er-r" x="968" y="412">fuente_id</text>
+<rect class="er-b b-uq" x="924" y="421" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="933" y="431.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="968" y="432">nombre_fuente</text>
+<text class="er-ft" x="968" y="452">+4 columnas más</text>
+</a>
+<a class="er-a" href="#t-referencia_precio_mercado" aria-label="referencia_precio_mercado: ver sus columnas">
+<rect class="er-box" x="626" y="328" width="232" height="116" rx="5"/>
+<path class="er-hd a4" d="M626,358 V333 Q626,328 631,328 H853 Q858,328 858,333 V358 Z"/>
+<line class="er-sep" x1="626" y1="358" x2="858" y2="358"/>
+<text class="er-tn" x="636" y="348">referencia_precio_mercado</text>
+<rect class="er-b b-pk" x="634" y="361" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="371.5" text-anchor="middle">PK</text>
+<text class="er-r" x="678" y="372">referencia_id</text>
+<rect class="er-b b-fk" x="634" y="381" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="391.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="392">producto_id</text>
+<rect class="er-b b-fk" x="634" y="401" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="411.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="412">fuente_id</text>
+<text class="er-ft" x="678" y="432">+6 columnas más</text>
+</a>
+<a class="er-a" href="#t-corrida_nocturna" aria-label="corrida_nocturna: ver sus columnas">
+<rect class="er-box" x="916" y="676" width="232" height="96" rx="5"/>
+<path class="er-hd a5" d="M916,706 V681 Q916,676 921,676 H1143 Q1148,676 1148,681 V706 Z"/>
+<line class="er-sep" x1="916" y1="706" x2="1148" y2="706"/>
+<text class="er-tn" x="926" y="696">corrida_nocturna</text>
+<rect class="er-b b-pk" x="924" y="709" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="933" y="719.5" text-anchor="middle">PK</text>
+<text class="er-r" x="968" y="720">corrida_id</text>
+<path class="er-co" d="M933,731 L938,736 L933,741 L928,736 Z"/>
+<text class="er-r er-r-co" x="968" y="740">comercio_id</text>
+<text class="er-ft" x="968" y="760">+4 columnas más</text>
+</a>
+<a class="er-a" href="#t-recomendacion" aria-label="recomendacion: ver sus columnas">
+<rect class="er-box" x="626" y="656" width="232" height="176" rx="5"/>
+<path class="er-hd a5" d="M626,686 V661 Q626,656 631,656 H853 Q858,656 858,661 V686 Z"/>
+<line class="er-sep" x1="626" y1="686" x2="858" y2="686"/>
+<text class="er-tn" x="636" y="676">recomendacion</text>
+<rect class="er-b b-pk" x="634" y="689" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="699.5" text-anchor="middle">PK</text>
+<text class="er-r" x="678" y="700">recomendacion_id</text>
+<rect class="er-b b-fk" x="634" y="709" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="719.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="720">corrida_id</text>
+<rect class="er-b b-fk" x="634" y="729" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="739.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="740">producto_id</text>
+<rect class="er-b b-fk" x="634" y="749" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="759.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="760">conciliacion_id</text>
+<rect class="er-b b-fk" x="634" y="769" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="779.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="780">recomendacion_anterior_id</text>
+<rect class="er-b b-fkx" x="634" y="789" width="18" height="14" rx="3"/><text class="er-bt b-fkx-t" x="643" y="799.5" text-anchor="middle">FK</text>
+<text class="er-r" x="678" y="800">decidido_por_usuario_id</text>
+<text class="er-ft" x="678" y="820">+21 columnas más</text>
+</a>
+<a class="er-a" href="#t-recomendacion_referencia" aria-label="recomendacion_referencia: ver sus columnas">
+<rect class="er-box" x="916" y="496" width="232" height="96" rx="5"/>
+<path class="er-hd a5" d="M916,526 V501 Q916,496 921,496 H1143 Q1148,496 1148,501 V526 Z"/>
+<line class="er-sep" x1="916" y1="526" x2="1148" y2="526"/>
+<text class="er-tn" x="926" y="516">recomendacion_referencia</text>
+<rect class="er-b b-pk" x="924" y="529" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="933" y="539.5" text-anchor="middle">PK</text><rect class="er-b b-fk" x="944" y="529" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="953" y="539.5" text-anchor="middle">FK</text>
+<text class="er-r" x="968" y="540">referencia_id</text>
+<rect class="er-b b-pk" x="924" y="549" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="933" y="559.5" text-anchor="middle">PK</text><rect class="er-b b-fk" x="944" y="549" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="953" y="559.5" text-anchor="middle">FK</text>
+<text class="er-r" x="968" y="560">recomendacion_id</text>
+<rect class="er-b b-fkx" x="924" y="569" width="18" height="14" rx="3"/><text class="er-bt b-fkx-t" x="933" y="579.5" text-anchor="middle">FK</text>
+<text class="er-r" x="968" y="580">producto_id</text>
+</a>
+<a class="er-a" href="#t-campana" aria-label="campana: ver sus columnas">
+<rect class="er-box" x="626" y="892" width="232" height="116" rx="5"/>
+<path class="er-hd a6" d="M626,922 V897 Q626,892 631,892 H853 Q858,892 858,897 V922 Z"/>
+<line class="er-sep" x1="626" y1="922" x2="858" y2="922"/>
+<text class="er-tn" x="636" y="912">campana</text>
+<rect class="er-b b-pk" x="634" y="925" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="643" y="935.5" text-anchor="middle">PK</text>
+<text class="er-r" x="678" y="936">campana_id</text>
+<path class="er-co" d="M643,947 L648,952 L643,957 L638,952 Z"/>
+<text class="er-r er-r-co" x="678" y="956">comercio_id</text>
+<rect class="er-b b-fk" x="634" y="965" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="643" y="975.5" text-anchor="middle">FK</text><rect class="er-b b-uq" x="654" y="965" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="663" y="975.5" text-anchor="middle">UQ</text>
+<text class="er-r" x="678" y="976">recomendacion_id</text>
+<text class="er-ft" x="678" y="996">+9 columnas más</text>
+</a>
+<a class="er-a" href="#t-cliente" aria-label="cliente: ver sus columnas">
+<rect class="er-box" x="24" y="912" width="232" height="96" rx="5"/>
+<path class="er-hd a6" d="M24,942 V917 Q24,912 29,912 H251 Q256,912 256,917 V942 Z"/>
+<line class="er-sep" x1="24" y1="942" x2="256" y2="942"/>
+<text class="er-tn" x="34" y="932">cliente</text>
+<rect class="er-b b-pk" x="32" y="945" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="41" y="955.5" text-anchor="middle">PK</text>
+<text class="er-r" x="76" y="956">cliente_id</text>
+<path class="er-co" d="M41,967 L46,972 L41,977 L36,972 Z"/>
+<text class="er-r er-r-co" x="76" y="976">comercio_id</text>
+<text class="er-ft" x="76" y="996">+6 columnas más</text>
+</a>
+<a class="er-a" href="#t-envio_campana" aria-label="envio_campana: ver sus columnas">
+<rect class="er-box" x="314" y="872" width="232" height="116" rx="5"/>
+<path class="er-hd a6" d="M314,902 V877 Q314,872 319,872 H541 Q546,872 546,877 V902 Z"/>
+<line class="er-sep" x1="314" y1="902" x2="546" y2="902"/>
+<text class="er-tn" x="324" y="892">envio_campana</text>
+<rect class="er-b b-pk" x="322" y="905" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="331" y="915.5" text-anchor="middle">PK</text>
+<text class="er-r" x="366" y="916">envio_id</text>
+<rect class="er-b b-fk" x="322" y="925" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="935.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="936">campana_id</text>
+<rect class="er-b b-fk" x="322" y="945" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="331" y="955.5" text-anchor="middle">FK</text>
+<text class="er-r" x="366" y="956">cliente_id</text>
+<text class="er-ft" x="366" y="976">+2 columnas más</text>
+</a><rect class="er-legend" x="24" y="440" width="232" height="397" rx="6"/><text class="er-lt" x="36" y="464">Cómo leer el diagrama</text><rect class="er-b b-pk" x="36" y="475" width="18" height="14" rx="3"/><text class="er-bt b-pk-t" x="45" y="485.5" text-anchor="middle">PK</text><text class="er-l" x="64" y="486">llave primaria</text><rect class="er-b b-fk" x="36" y="496" width="18" height="14" rx="3"/><text class="er-bt b-fk-t" x="45" y="506.5" text-anchor="middle">FK</text><text class="er-l" x="64" y="507">llave foránea con línea</text><rect class="er-b b-fkx" x="36" y="517" width="18" height="14" rx="3"/><text class="er-bt b-fkx-t" x="45" y="527.5" text-anchor="middle">FK</text><text class="er-l" x="64" y="528">llave foránea sin línea</text><rect class="er-b b-uq" x="36" y="538" width="18" height="14" rx="3"/><text class="er-bt b-uq-t" x="45" y="548.5" text-anchor="middle">UQ</text><text class="er-l" x="64" y="549">valor único</text><path class="er-co" d="M45,561 L50,566 L45,571 L40,566 Z"/><text class="er-l" x="64" y="570">comercio_id (entidad fuerte)</text><line class="er-e" x1="36" y1="593" x2="76" y2="593"/><line class="er-sep" x1="76" y1="585" x2="76" y2="601"/><line class="er-m" x1="71" y1="588" x2="71" y2="598"/><line class="er-m" x1="67" y1="588" x2="67" y2="598"/><text class="er-l" x="88" y="597">exactamente uno</text><line class="er-e" x1="36" y1="614" x2="76" y2="614"/><line class="er-sep" x1="76" y1="606" x2="76" y2="622"/><line class="er-m" x1="71" y1="609" x2="71" y2="619"/><circle class="er-o" cx="63" cy="614" r="3"/><text class="er-l" x="88" y="618">cero o uno</text><line class="er-e" x1="36" y1="635" x2="76" y2="635"/><line class="er-sep" x1="76" y1="627" x2="76" y2="643"/><path class="er-m" fill="none" d="M67,635 L76,630 M67,635 L76,640"/><circle class="er-o" cx="63" cy="635" r="3"/><text class="er-l" x="88" y="639">cero o muchos</text><rect class="er-hd a1 er-chip" x="36" y="656" width="18" height="12" rx="2"/><text class="er-l" x="64" y="666">Comercio y usuarios</text><rect class="er-hd a2 er-chip" x="36" y="675" width="18" height="12" rx="2"/><text class="er-l" x="64" y="685">Catálogo</text><rect class="er-hd a3 er-chip" x="36" y="694" width="18" height="12" rx="2"/><text class="er-l" x="64" y="704">Ventas y compras</text><rect class="er-hd a4 er-chip" x="36" y="713" width="18" height="12" rx="2"/><text class="er-l" x="64" y="723">Inventario y mercado</text><rect class="er-hd a5 er-chip" x="36" y="732" width="18" height="12" rx="2"/><text class="er-l" x="64" y="742">Recomendación</text><rect class="er-hd a6 er-chip" x="36" y="751" width="18" height="12" rx="2"/><text class="er-l" x="64" y="761">Campañas</text><text class="er-ft" x="36" y="788">Las llaves hacia comercio y usuario</text><text class="er-ft" x="36" y="803">no se dibujan: las llevan 10 y 3 tablas.</text><text class="er-ft" x="36" y="818">Columnas completas: en la maqueta.</text></svg>
+  <div class="lado">
+    <span class="hoja-n">Hoja 2 de 2 · derecha</span>
+    <p>Las líneas son llaves foráneas en notación pata de gallo. La pata llega al renglón de la llave foránea; cuando una tabla está encima de otra, la línea lleva el nombre de la llave.</p>
+    <p>Las cinco tablas que dependen de producto comparten una línea de salida, que cruza el corte entre las dos hojas.</p>
+  </div>
+</section>

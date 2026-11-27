@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Anaquel · Proyecto Integrador</title>
+<meta name="description" content="Agente de rotación de inventario para comercios locales: liquidar, retener o resurtir, con autorización del dueño.">
+<link rel="icon" href="assets/icono.png">
+<style>
+:root{--marino:#10265C;--rojo:#D0202F;--fondo:#F6F7FA;--tarjeta:#FFFFFF;--texto:#16203A;
+--suave:#56607A;--borde:#DDE2EC;--chip:#E8ECF5;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--fondo:#0C1222;--tarjeta:#151D33;--texto:#E9EDF6;
+--suave:#A3ADC4;--borde:#27314C;--chip:#1E2944;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--texto);
+font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:inherit}
+.envoltura{max-width:960px;margin:0 auto;padding-inline:18px}
+header{background:var(--marino);color:#fff;padding-block:28px 34px}
+.marca{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.05rem;letter-spacing:.02em}
+.marca img{width:40px;height:40px;border-radius:10px}
+h1{font-size:clamp(1.7rem,6vw,2.6rem);line-height:1.15;margin:22px 0 10px;max-width:22ch}
+.lema{color:#C9D3EA;margin:0 0 22px;max-width:52ch}
+.botones{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:10px;
+background:#fff;color:var(--marino);font-weight:600;text-decoration:none}
+.btn.sec{background:transparent;color:#fff;border:1.5px solid #ffffff66}
+section{padding-block:34px 6px}
+h2{font-size:1.35rem;margin:0 0 6px}
+.sub{color:var(--suave);margin:0 0 18px}
+.salidas{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.tarjeta{background:var(--tarjeta);border:1px solid var(--borde);border-radius:14px;padding:16px}
+.tarjeta b{display:block;font-size:1.05rem;margin-bottom:2px}
+.tarjeta p{margin:0;color:var(--suave);font-size:.95rem}
+.punto{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;background:var(--rojo)}
+video,figure img{width:100%;border-radius:14px;border:1px solid var(--borde);display:block;background:#000}
+figure{margin:0 0 18px}
+figcaption{color:var(--suave);font-size:.9rem;margin-top:6px}
+.cuadros{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
+.cuadros img{height:340px;width:auto;border-radius:14px;border:1px solid var(--borde);scroll-snap-align:start}
+.lista{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.lista a{display:flex;justify-content:space-between;gap:12px;align-items:center;text-decoration:none;
+background:var(--tarjeta);border:1px solid var(--borde);border-radius:12px;padding:14px 16px}
+.lista span{color:var(--suave);font-size:.9rem}
+.tam{flex:none;background:var(--chip);border-radius:999px;padding:2px 10px;font-size:.8rem;color:var(--suave)}
+.equipo{columns:2 220px;padding-left:18px;margin:0}
+.materias{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}
+.materia p{margin:8px 0 0;color:var(--texto);font-size:.93rem}
+.materia p.concepto{color:var(--suave);margin-top:0}
+.et{display:block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--rojo)}
+.materia b a{text-decoration:none}
+.seccion-materia{border-top:1px solid var(--borde);margin-top:26px}
+.eyebrow{margin:0 0 2px;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rojo)}
+.pidio{background:var(--tarjeta);border-left:4px solid var(--rojo);border-radius:8px;padding:10px 14px;margin:0 0 16px}
+.nota{color:var(--suave);font-size:.9rem;border:1px dashed var(--borde);border-radius:8px;padding:10px 14px;margin:0 0 16px}
+.figuras{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:14px}
+.figuras img{background:#fff}
+.pruebas{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.pruebas figure{margin:0}.pruebas img{background:#fff}
+footer{color:var(--suave);font-size:.88rem;padding-block:34px 40px}
+</style></head><body>
+<header><div class="envoltura">
+  <div class="marca"><img src="assets/icono.png" alt="">Anaquel</div>
+  <h1>Qué liquidar, retener o resurtir, producto por producto</h1>
+  <p class="lema">Agente de rotación de inventario para comercios locales. Revisa cada noche lo que dejó de
+  venderse, concilia lo que de verdad hay en el anaquel y propone una salida con un precio acotado.
+  Nada cambia sin la autorización del dueño.</p>
+  <div class="botones">
+    <a class="btn" href="#demo">Ver la demo</a>
+    <a class="btn sec" href="#materias">Materias</a>
+    <a class="btn sec" href="#documentos">Documentos</a>
+    <a class="btn sec" href="https://github.com/ThanatosPi/anaquel/tree/main/codigo">Código</a>
+    <a class="btn sec" href="#red">Red</a>
+    <a class="btn sec" href="#app">App Android</a>
+  </div>
+</div></header>
+<main class="envoltura">
+<section>
+  <h2>Tres salidas, una firma</h2>
+  <p class="sub">Para cada producto detenido, el sistema recomienda una de tres.</p>
+  <div class="salidas">
+    <div class="tarjeta"><b><i class="punto"></i>Liquidar</b><p>Precio entre un piso económico y uno comercial.</p></div>
+    <div class="tarjeta"><b><i class="punto" style="background:#E0A100"></i>Retener</b><p>Lo de temporada está dormido, no muerto: se guarda hasta su ventana.</p></div>
+    <div class="tarjeta"><b><i class="punto" style="background:#1F8A5B"></i>Resurtir</b><p>Lo que sí rota y está por agotarse.</p></div>
+  </div>
+</section>
+<section id="materias">
+  <h2>Seis materias, un sistema</h2>
+  <p class="sub">Qué pidió cada materia, qué aporta al sistema y dónde se puede comprobar.</p>
+  <div class="materias"><div class="tarjeta materia"><b><a href="#modelos">Modelos Abstractos de Software →</a></b>
+  <p class="concepto">Modelo de dominio y fronteras</p>
+  <p><span class="et">Pidió</span>El modelo del dominio con sus fronteras. Dos rondas de retroalimentación fijaron las tres salidas y que lo de temporada se retiene, no se liquida.</p>
+  <p><span class="et">Aporta</span>Tres salidas; ciclo de producto; dormido ≠ muerto</p>
+  <p><span class="et">Evidencia</span>Diagrama de fronteras; MOTOR OK 20/20</p></div>
+<div class="tarjeta materia"><b><a href="#proyectos">Administración de Proyectos →</a></b>
+  <p class="concepto">Charter, EDT, EVM, control de cambios</p>
+  <p><span class="et">Pidió</span>Project Charter, plan de alcance y EDT, cronograma, valor ganado, control de cambios y los planes de calidad.</p>
+  <p><span class="et">Aporta</span>Alcance, cronograma y cambios SC-001 a SC-014</p>
+  <p><span class="et">Evidencia</span>Charter; EVM; SC-014 documentada</p></div>
+<div class="tarjeta materia"><b><a href="#bd">Base de Datos →</a></b>
+  <p class="concepto">Esquema relacional e invariantes</p>
+  <p><span class="et">Pidió</span>Rediseñar el esquema (versión 2). Lo revisó dos veces y aprobó la maqueta el 20 de octubre.</p>
+  <p><span class="et">Aporta</span>21 tablas; 23 disparadores aíslan comercios</p>
+  <p><span class="et">Evidencia</span>55 rechazos esperados en PostgreSQL</p></div>
+<div class="tarjeta materia"><b><a href="#android">Desarrollo Android →</a></b>
+  <p class="concepto">App nativa Kotlin / Compose</p>
+  <p><span class="et">Pidió</span>La app nativa del dueño, su mapa de navegación (wireflow) y la propuesta de una app para clientes (29 de septiembre).</p>
+  <p><span class="et">Aporta</span>El dueño autoriza, cuenta con foto, crea su negocio de prueba</p>
+  <p><span class="et">Evidencia</span>App 0.6.3 en Samsung; 163 pruebas JVM</p></div>
+<div class="tarjeta materia"><b><a href="#red">Redes →</a></b>
+  <p class="concepto">Cliente-servidor y API REST</p>
+  <p><span class="et">Pidió</span>La «Lista de cisco»: diagrama con direccionamiento, ISP, VLANs, dónde están los clientes, el servidor protegido por VLAN y qué hacer si no hay conectividad.</p>
+  <p><span class="et">Aporta</span>Teléfono ↔ servidor por cable, Wi-Fi o túnel</p>
+  <p><span class="et">Evidencia</span>Red Anaquel en Packet Tracer; demo por Wi-Fi</p></div>
+<div class="tarjeta materia"><b><a href="#imagenes">Procesamiento de Imágenes →</a></b>
+  <p class="concepto">Lectura de QR, OCR y visión</p>
+  
+  <p><span class="et">Aporta</span>Costos desde la factura CFDI; conteo por foto</p>
+  <p><span class="et">Evidencia</span>CAPTURA: CFDI 5/5; conteo corregido en demo</p></div></div>
+</section>
+<section id="demo">
+  <h2>Demo de punta a punta</h2>
+  <p class="sub">Del conteo por foto a la autorización del dueño, en el teléfono (26/nov/2026).</p>
+  <video controls playsinline preload="metadata" poster="assets/s6_demo.png">
+    <source src="demo/demo-anaquel.mp4" type="video/mp4"></video>
+  <p class="sub" style="margin-top:8px">Video 720p · 1.8 MB</p>
+  <div class="cuadros"><img src="assets/cuadros/inicio.png" alt="Pantalla de la app: inicio" loading="lazy">
+<img src="assets/cuadros/lista.png" alt="Pantalla de la app: lista" loading="lazy">
+<img src="assets/cuadros/detalle.png" alt="Pantalla de la app: detalle" loading="lazy">
+<img src="assets/cuadros/precio.png" alt="Pantalla de la app: precio" loading="lazy">
+<img src="assets/cuadros/autorizar.png" alt="Pantalla de la app: autorizar" loading="lazy">
+<img src="assets/cuadros/guardado.png" alt="Pantalla de la app: guardado" loading="lazy"></div>
+</section>
+<section>
+  <h2>Arquitectura</h2>
+  <p class="sub">App Android, API con agentes, motor de reglas, modelos locales y PostgreSQL. Seis materias, un sistema.</p>
+  <figure><img src="assets/s2_salidas.png" alt="Las tres salidas y la regla de temporada" loading="lazy"><figcaption>Las tres salidas y la regla de temporada</figcaption></figure>
+<figure><img src="assets/s3_materias.png" alt="Las seis materias que forman el sistema" loading="lazy"><figcaption>Las seis materias que forman el sistema</figcaption></figure>
+<figure><img src="assets/s5_componentes.png" alt="Componentes y por qué se eligió cada uno" loading="lazy"><figcaption>Componentes y por qué se eligió cada uno</figcaption></figure>
+</section>
+<section id="modelos" class="seccion-materia">
+  <p class="eyebrow">Materia</p>
+  <h2>Modelos Abstractos de Software</h2>
+  <p class="sub">Modelo de dominio y fronteras. El dominio se modeló antes que el código: qué decide el agente, qué decide el dueño y dónde termina cada uno. De ahí salen las reglas que el motor verifica en 20 escenarios.</p>
+  <p class="pidio"><span class="et">Lo que pidió</span>El modelo del dominio con sus fronteras. Dos rondas de retroalimentación fijaron las tres salidas y que lo de temporada se retiene, no se liquida.</p>
+  
+  <div class="figuras"><figure><img src="materias/fronteras.png" alt="Fronteras del dominio: lo que el agente recomienda y lo que sólo el dueño decide." loading="lazy"><figcaption>Fronteras del dominio: lo que el agente recomienda y lo que sólo el dueño decide.</figcaption></figure>
+<figure><img src="materias/dimensiones.png" alt="Las cinco dimensiones de abstracción del sistema." loading="lazy"><figcaption>Las cinco dimensiones de abstracción del sistema.</figcaption></figure></div>
+  <ul class="lista"><li><a href="docs/presentacion-dominio.pdf"><div><b>Presentación del dominio</b><br><span>El modelo en 8 diapositivas</span></div><span class="tam">194 KB</span></a></li><li><a href="https://github.com/ThanatosPi/anaquel/tree/main/codigo/simulador"><div><b>Simulador y verificador</b><br><span>Comercio sintético con 20 escenarios y su salida esperada</span></div><span class="tam">GitHub</span></a></li></ul>
+  
+</section>
+<section id="proyectos" class="seccion-materia">
+  <p class="eyebrow">Materia</p>
+  <h2>Administración de Proyectos</h2>
+  <p class="sub">Charter, EDT, EVM, control de cambios. El proyecto se llevó con un plan formal: alcance y EDT, cronograma, valor ganado por corte y cada cambio registrado como solicitud (SC-001 a SC-014).</p>
+  <p class="pidio"><span class="et">Lo que pidió</span>Project Charter, plan de alcance y EDT, cronograma, valor ganado, control de cambios y los planes de calidad.</p>
+  
+  <div class="figuras"><figure><img src="materias/edt.png" alt="EDT: 864 h en 33 paquetes de trabajo." loading="lazy"><figcaption>EDT: 864 h en 33 paquetes de trabajo.</figcaption></figure>
+<figure><img src="materias/curva-s.png" alt="Curva S y valor ganado al corte de la sesión 12." loading="lazy"><figcaption>Curva S y valor ganado al corte de la sesión 12.</figcaption></figure>
+<figure><img src="materias/cronograma.png" alt="Cronograma del proyecto." loading="lazy"><figcaption>Cronograma del proyecto.</figcaption></figure>
+<figure><img src="materias/control-cambios.png" alt="Flujo de control de cambios." loading="lazy"><figcaption>Flujo de control de cambios.</figcaption></figure></div>
+  <ul class="lista"><li><a href="docs/plan-de-calidad.pdf"><div><b>Plan de calidad</b><br><span>Métricas, pruebas y criterios de aceptación</span></div><span class="tam">406 KB</span></a></li><li><a href="docs/control-de-calidad.pdf"><div><b>Control de calidad</b><br><span>Resultados contra el plan</span></div><span class="tam">779 KB</span></a></li><li><a href="docs/informe-desempeno-costo.pdf"><div><b>Informe de desempeño y costo</b><br><span>Valor ganado, SPI y CPI</span></div><span class="tam">504 KB</span></a></li><li><a href="docs/analisis-integrador.pdf"><div><b>Análisis integrador</b><br><span>Bloques VII a X</span></div><span class="tam">799 KB</span></a></li></ul>
+  
+</section>
+<section id="bd" class="seccion-materia">
+  <p class="eyebrow">Materia</p>
+  <h2>Base de Datos</h2>
+  <p class="sub">Esquema relacional e invariantes. PostgreSQL con 21 tablas. El aislamiento entre comercios no depende de la aplicación: lo imponen 23 disparadores, y la base rechaza 55 operaciones prohibidas en las pruebas, probadas con dos comercios.</p>
+  <p class="pidio"><span class="et">Lo que pidió</span>Rediseñar el esquema (versión 2). Lo revisó dos veces y aprobó la maqueta el 20 de octubre.</p>
+  
+  <div class="figuras"><figure><img src="materias/modelo-er-v2.png" alt="Modelo entidad-relación, versión 2 (la que aprobó la maestra)." loading="lazy"><figcaption>Modelo entidad-relación, versión 2 (la que aprobó la maestra).</figcaption></figure></div>
+  <ul class="lista"><li><a href="docs/diagrama-er-interactivo.html"><div><b>Diagrama E-R interactivo</b><br><span>Explora tabla por tabla</span></div><span class="tam">69 KB</span></a></li><li><a href="docs/modelo-er-v2.pdf"><div><b>Modelo E-R v2</b><br><span>El diagrama completo en PDF</span></div><span class="tam">242 KB</span></a></li><li><a href="docs/diccionario-de-datos-v2.pdf"><div><b>Diccionario de datos v2</b><br><span>Cada tabla, columna y restricción</span></div><span class="tam">991 KB</span></a></li><li><a href="https://github.com/ThanatosPi/anaquel/blob/main/codigo/base-de-datos/schema.sql"><div><b>schema.sql</b><br><span>El esquema con sus disparadores de aislamiento</span></div><span class="tam">GitHub</span></a></li><li><a href="https://github.com/ThanatosPi/anaquel/blob/main/codigo/base-de-datos/datos_prueba.sql"><div><b>datos_prueba.sql</b><br><span>Datos de prueba y las pruebas negativas</span></div><span class="tam">GitHub</span></a></li></ul>
+  
+</section>
+<section id="android" class="seccion-materia">
+  <p class="eyebrow">Materia</p>
+  <h2>Desarrollo Android</h2>
+  <p class="sub">App nativa Kotlin / Compose. App nativa en Kotlin y Jetpack Compose: el dueño revisa cada recomendación, cuenta con foto, registra facturas y autoriza con su huella. Nada cambia de precio sin su firma.</p>
+  <p class="pidio"><span class="et">Lo que pidió</span>La app nativa del dueño, su mapa de navegación (wireflow) y la propuesta de una app para clientes (29 de septiembre).</p>
+  
+  <div class="figuras"><figure><img src="materias/mapa-navegacion.png" alt="Mapa de navegación (wireflow): 17 pantallas y cómo se conectan." loading="lazy"><figcaption>Mapa de navegación (wireflow): 17 pantallas y cómo se conectan.</figcaption></figure>
+<figure><img src="materias/wireframes.png" alt="Wireframes de la ficha técnica." loading="lazy"><figcaption>Wireframes de la ficha técnica.</figcaption></figure></div>
+  <ul class="lista"><li><a href="apk/anaquel-0.6.3.apk"><div><b>Descargar la app (APK 0.6.3)</b><br><span>Build de prueba para Android</span></div><span class="tam">22.9 MB</span></a></li><li><a href="https://github.com/ThanatosPi/anaquel/tree/main/codigo/app-android"><div><b>Código de la app</b><br><span>Kotlin + Compose, con sus pruebas</span></div><span class="tam">GitHub</span></a></li><li><a href="docs/sc-013-pantallas-app.pdf"><div><b>SC-013: pantallas de la app</b><br><span>Solicitud de cambio del esquema v2 y las pantallas</span></div><span class="tam">665 KB</span></a></li></ul>
+  
+</section>
+<section id="red" class="seccion-materia">
+  <p class="eyebrow">Materia</p>
+  <h2>Redes</h2>
+  <p class="sub">Cliente-servidor y API REST. Sede con servidores protegidos por VLAN y ACL, ISP con DNS público, la tienda cliente (caja y Wi-Fi separados) y un hogar. Se abre en Cisco Packet Tracer 9.0.1.</p>
+  <p class="pidio"><span class="et">Lo que pidió</span>La «Lista de cisco»: diagrama con direccionamiento, ISP, VLANs, dónde están los clientes, el servidor protegido por VLAN y qué hacer si no hay conectividad.</p>
+  
+  <div class="figuras"><figure><img src="red/evidencias/00_topologia_full.png" alt="Topología completa: R-HQ, MLS-HQ (VLAN 10 Servidores, 20 Desarrollo, 99 Gestión), ISP y R-TIENDA." loading="lazy"><figcaption>Topología completa: R-HQ, MLS-HQ (VLAN 10 Servidores, 20 Desarrollo, 99 Gestión), ISP y R-TIENDA.</figcaption></figure></div>
+  <ul class="lista"><li><a href="red/red-anaquel.pkt"><div><b>Simulación (.pkt)</b><br><span>Packet Tracer 9.0.1</span></div><span class="tam">119 KB</span></a></li><li><a href="docs/guia-red-packet-tracer.pdf"><div><b>Guía de la red</b><br><span>Topología, direccionamiento, VLANs, ACL, preguntas y pruebas</span></div><span class="tam">440 KB</span></a></li><li><a href="https://github.com/ThanatosPi/anaquel/tree/main/red/cmds"><div><b>Configuración IOS de cada equipo</b><br><span>Tal como se pegó en el CLI, en orden: ISP, R-HQ, MLS, switches, R-TIENDA, SSH</span></div><span class="tam">GitHub</span></a></li></ul>
+  <h3 style="margin:22px 0 10px">Las 8 pruebas</h3>
+<div class="pruebas"><figure><img src="red/evidencias/01_caja_web_api.png" alt="La caja de la tienda entra a la API por web" loading="lazy"><figcaption>1. La caja de la tienda entra a la API por web</figcaption></figure>
+<figure><img src="red/evidencias/02_cliente_web_api.png" alt="Un cliente desde su casa llega a la API por DNS y NAT" loading="lazy"><figcaption>2. Un cliente desde su casa llega a la API por DNS y NAT</figcaption></figure>
+<figure><img src="red/evidencias/03_dueno_api_ok_caja_bloqueada.png" alt="El Wi-Fi del dueño llega a la API; a la caja, no" loading="lazy"><figcaption>3. El Wi-Fi del dueño llega a la API; a la caja, no</figcaption></figure>
+<figure><img src="red/evidencias/04_dev_web_bd_bloqueada.png" alt="Desarrollo no entra a la base por web" loading="lazy"><figcaption>4. Desarrollo no entra a la base por web</figcaption></figure>
+<figure><img src="red/evidencias/05_dev_ping_bd_ok.png" alt="Desarrollo sí alcanza la base de datos" loading="lazy"><figcaption>5. Desarrollo sí alcanza la base de datos</figcaption></figure>
+<figure><img src="red/evidencias/06_admin_web_bd_ok.png" alt="Gestión entra a todo" loading="lazy"><figcaption>6. Gestión entra a todo</figcaption></figure>
+<figure><img src="red/evidencias/07_admin_ssh_mls_ok.png" alt="SSH al switch de capa 3 desde Gestión" loading="lazy"><figcaption>7. SSH al switch de capa 3 desde Gestión</figcaption></figure>
+<figure><img src="red/evidencias/08_dev_ssh_rechazado.png" alt="SSH desde Desarrollo: rechazado" loading="lazy"><figcaption>8. SSH desde Desarrollo: rechazado</figcaption></figure></div>
+</section>
+<section id="imagenes" class="seccion-materia">
+  <p class="eyebrow">Materia</p>
+  <h2>Procesamiento de Imágenes</h2>
+  <p class="sub">Lectura de QR, OCR y visión. Dos entradas visuales. Captura lee la factura CFDI (QR y XML) para sacar el costo vigente, y Visión propone cuántas piezas hay en una foto del anaquel, siempre con la confirmación del dueño.</p>
+  
+  <p class="nota">Pendiente y dicho tal cual: medir Visión con 40 fotos reales de anaquel y el OCR de tickets con 15 fotos reales. La foto de la demo es dibujada.</p>
+  <div class="figuras"><figure><img src="materias/vision-conteo.png" alt="Visión propone 1; el dueño corrige a 5. El conteo siempre lo confirma una persona." loading="lazy"><figcaption>Visión propone 1; el dueño corrige a 5. El conteo siempre lo confirma una persona.</figcaption></figure>
+<figure><img src="materias/captura-cfdi.png" alt="Captura lee la factura y el dueño confirma antes de guardar." loading="lazy"><figcaption>Captura lee la factura y el dueño confirma antes de guardar.</figcaption></figure></div>
+  <ul class="lista"><li><a href="https://github.com/ThanatosPi/anaquel/tree/main/imagenes/cfdi"><div><b>Las 5 facturas CFDI de prueba</b><br><span>XML sintéticos y la lectura esperada de cada uno: 5 de 5 correctas</span></div><span class="tam">GitHub</span></a></li><li><a href="#demo"><div><b>Verlo en la demo</b><br><span>Paso 1 (foto) y paso 2 (factura)</span></div><span class="tam">Video</span></a></li></ul>
+  
+</section>
+<section id="documentos">
+  <h2>Documentos</h2>
+  <p class="sub">Entregables del proyecto, listos para abrir en el celular.</p>
+  <ul class="lista"><li><a href="docs/presentacion-final-27nov.pdf"><div><b>Presentación final</b><br><span>Las 7 diapositivas del 27 de noviembre.</span></div><span class="tam">1.6 MB</span></a></li>
+<li><a href="docs/documentacion-completa.pdf"><div><b>Documentación completa</b><br><span>Todo el proyecto en un solo PDF.</span></div><span class="tam">19.4 MB</span></a></li>
+<li><a href="docs/actividad-integradora-final.pdf"><div><b>Actividad integradora final</b><br><span>Repaso de los bloques VI a X.</span></div><span class="tam">1.5 MB</span></a></li>
+<li><a href="docs/analisis-integrador.pdf"><div><b>Análisis integrador</b><br><span>Bloques VII a X y corte de valor ganado.</span></div><span class="tam">799 KB</span></a></li>
+<li><a href="docs/plan-de-calidad.pdf"><div><b>Plan de calidad</b><br><span>Métricas, pruebas y criterios de aceptación.</span></div><span class="tam">406 KB</span></a></li>
+<li><a href="docs/control-de-calidad.pdf"><div><b>Control de calidad</b><br><span>Resultados de las pruebas contra el plan.</span></div><span class="tam">779 KB</span></a></li>
+<li><a href="docs/informe-desempeno-costo.pdf"><div><b>Informe de desempeño y costo</b><br><span>Valor ganado, SPI y CPI.</span></div><span class="tam">504 KB</span></a></li>
+<li><a href="docs/diagrama-er.pdf"><div><b>Diagrama entidad-relación v1</b><br><span>El modelo físico de septiembre (antes del rediseño v2).</span></div><span class="tam">373 KB</span></a></li>
+<li><a href="docs/diagrama-er-interactivo.html"><div><b>Diagrama E-R interactivo</b><br><span>Para explorar tabla por tabla en el navegador.</span></div><span class="tam">69 KB</span></a></li></ul>
+</section>
+<section id="app">
+  <h2>App y código</h2>
+  <ul class="lista">
+    <li><a href="apk/anaquel-0.6.3.apk"><div><b>Descargar la app (APK 0.6.3)</b><br>
+      <span>Android. Build de prueba: hay que permitir apps de origen desconocido.</span></div>
+      <span class="tam">22.9 MB</span></a></li>
+    <li><a href="https://github.com/ThanatosPi/anaquel/tree/main/codigo"><div><b>Código fuente en GitHub</b><br>
+      <span>App Kotlin/Compose, simulador del comercio y esquema de la base · 97 archivos</span></div>
+      <span class="tam">GitHub</span></a></li>
+  </ul>
+</section>
+<section>
+  <h2>Equipo Anaquel · Grupo 501</h2>
+  <p class="sub">Ingeniería en Sistemas Computacionales, 5º semestre · Universidad La Salle Nezahualcóyotl · Ago–Dic 2026</p>
+  <ul class="equipo"><li>Castorela Hernández Meinard Djorkaeff</li>
+<li>Díaz Islas Carlos</li>
+<li>Godínez Austria Felipe</li>
+<li>Martínez Gallardo Emiliano</li>
+<li>Mondragón Suárez Fátima</li>
+<li>Rodríguez Magdaleno José Manuel</li>
+<li>Rojas Marín Evelyn</li>
+<li>Solis Renteria Diego</li>
+<li>Vidal Merino Emiliano Sebastian</li></ul>
+</section>
+</main>
+<footer class="envoltura">Proyecto académico con datos sintéticos. Generado por <code>build_sitio.py</code>.</footer>
+</body></html>

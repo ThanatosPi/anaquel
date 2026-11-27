@@ -1,0 +1,25 @@
+
+enable
+conf t
+no ip domain-lookup
+hostname SW-HQ
+vlan 20
+ name DESARROLLO
+vlan 99
+ name GESTION
+exit
+interface range fa0/1 - 2
+ switchport mode access
+ switchport access vlan 20
+interface fa0/3
+ switchport mode access
+ switchport access vlan 99
+interface fa0/4
+ switchport mode trunk
+interface vlan 99
+ ip address 10.43.99.2 255.255.255.0
+ no shutdown
+exit
+ip default-gateway 10.43.99.1
+end
+write memory

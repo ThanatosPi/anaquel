@@ -1,0 +1,46 @@
+
+enable
+conf t
+no ip domain-lookup
+hostname R-HQ
+ip domain-name anaquel.mx
+username admin privilege 15 secret Anaquel43
+interface g0/0
+ description WAN hacia ISP
+ ip address 200.43.1.2 255.255.255.240
+ ip nat outside
+ no shutdown
+interface g0/1
+ description Enlace a MLS-HQ
+ ip address 10.43.0.1 255.255.255.252
+ ip nat inside
+ no shutdown
+exit
+ip dhcp excluded-address 10.43.20.1 10.43.20.10
+ip dhcp excluded-address 10.43.99.1 10.43.99.10
+ip dhcp pool VLAN20-DESARROLLO
+ network 10.43.20.0 255.255.255.0
+ default-router 10.43.20.1
+ dns-server 200.43.100.2
+ip dhcp pool VLAN99-GESTION
+ network 10.43.99.0 255.255.255.0
+ default-router 10.43.99.1
+ dns-server 200.43.100.2
+exit
+access-list 1 permit 10.43.20.0 0.0.0.255
+access-list 1 permit 10.43.99.0 0.0.0.255
+ip nat inside source list 1 interface g0/0 overload
+ip nat inside source static 10.43.10.10 200.43.1.10
+ip route 0.0.0.0 0.0.0.0 200.43.1.1
+router ospf 43
+ router-id 1.1.1.1
+ network 10.43.0.0 0.0.0.3 area 0
+ default-information originate
+exit
+access-list 99 permit 10.43.99.0 0.0.0.255
+line vty 0 4
+ login local
+ transport input ssh
+ access-class 99 in
+end
+write memory

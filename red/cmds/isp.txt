@@ -1,0 +1,25 @@
+
+enable
+conf t
+no ip domain-lookup
+hostname ISP
+interface g0/0
+ description Enlace a Anaquel HQ
+ ip address 200.43.1.1 255.255.255.240
+ no shutdown
+interface g0/1
+ description Enlace a la Tienda cliente
+ ip address 200.43.0.5 255.255.255.252
+ no shutdown
+interface g0/2
+ description Red publica - DNS y hogares de clientes
+ ip address 200.43.100.1 255.255.255.0
+ no shutdown
+ip dhcp excluded-address 200.43.100.1 200.43.100.9
+ip dhcp pool INTERNET-HOGARES
+ network 200.43.100.0 255.255.255.0
+ default-router 200.43.100.1
+ dns-server 200.43.100.2
+exit
+end
+write memory

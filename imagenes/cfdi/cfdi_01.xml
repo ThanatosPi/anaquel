@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="4.0" Serie="A" Folio="1"
+    Fecha="2026-09-01T10:15:00" SubTotal="3660.00" Moneda="MXN" Total="4245.60" TipoDeComprobante="I" Exportacion="01" LugarExpedicion="57000">
+  <cfdi:Emisor Rfc="DHE010203AB1" Nombre="Distribuidora de Herramientas del Centro SA de CV" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="XAXX010101000" Nombre="FERRETERIA EL TORNILLO FELIZ" UsoCFDI="G01"/>
+  <cfdi:Conceptos>
+    <cfdi:Concepto ClaveProdServ="27111700" NoIdentificacion="LLA-014" Cantidad="6" ClaveUnidad="H87" Descripcion='Llave Stillson 14"' ValorUnitario="390.00" Importe="2340.00" ObjetoImp="02"/>
+    <cfdi:Concepto ClaveProdServ="27111700" NoIdentificacion="MAR-001" Cantidad="12" ClaveUnidad="H87" Descripcion="Martillo de uña 16 oz" ValorUnitario="110.00" Importe="1320.00" ObjetoImp="02"/>
+  </cfdi:Conceptos>
+  <cfdi:Complemento>
+    <tfd:TimbreFiscalDigital Version="1.1" UUID="5F2A9C10-0001-4A7B-9C3D-000000000001" FechaTimbrado="2026-09-01T10:16:02" RfcProvCertif="SAT970701NN3"/>
+  </cfdi:Complemento>
+</cfdi:Comprobante>

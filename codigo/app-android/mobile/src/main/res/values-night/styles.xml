@@ -1,0 +1,9 @@
+<resources>
+    <!-- Variante oscura de la ventana: sin ella, lo que se dibuja fuera del Scaffold quedaba en blanco. -->
+    <style name="Theme.Anaquel" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+</resources>

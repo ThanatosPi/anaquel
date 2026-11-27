@@ -1,0 +1,1318 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "d4443290174b51dbebacc2dba8de1f81",
+    "entities": [
+      {
+        "tableName": "rol",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`codigo_rol` TEXT NOT NULL, `descripcion_rol` TEXT NOT NULL, PRIMARY KEY(`codigo_rol`))",
+        "fields": [
+          {
+            "fieldPath": "code",
+            "columnName": "codigo_rol",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "descripcion_rol",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "codigo_rol"
+          ]
+        }
+      },
+      {
+        "tableName": "municipio_zona_climatica",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`municipio_zona_id` INTEGER NOT NULL, `entidad_federativa` TEXT NOT NULL, `municipio` TEXT NOT NULL, `zona_climatica` TEXT NOT NULL, `latitud_centro` REAL NOT NULL, `longitud_centro` REAL NOT NULL, `radio_km` REAL NOT NULL, `fuente_dato` TEXT NOT NULL, `fecha_hora_captura` TEXT NOT NULL, PRIMARY KEY(`municipio_zona_id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "municipio_zona_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "entidad_federativa",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "municipio",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zone",
+            "columnName": "zona_climatica",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitud_centro",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitud_centro",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "radiusKm",
+            "columnName": "radio_km",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "fuente_dato",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capturedAt",
+            "columnName": "fecha_hora_captura",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "municipio_zona_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_municipio_zona_climatica_entidad_federativa_municipio",
+            "unique": true,
+            "columnNames": [
+              "entidad_federativa",
+              "municipio"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_municipio_zona_climatica_entidad_federativa_municipio` ON `${TABLE_NAME}` (`entidad_federativa`, `municipio`)"
+          }
+        ]
+      },
+      {
+        "tableName": "comercio",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`comercio_id` INTEGER NOT NULL, `municipio_zona_id` INTEGER, `rfc` TEXT, `nombre_comercio` TEXT NOT NULL, `giro_comercial` TEXT NOT NULL, `zona_horaria` TEXT NOT NULL, `origen_zona_climatica` TEXT NOT NULL, `latitud` REAL, `longitud` REAL, `fecha_alta` TEXT NOT NULL, PRIMARY KEY(`comercio_id`), FOREIGN KEY(`municipio_zona_id`) REFERENCES `municipio_zona_climatica`(`municipio_zona_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "comercio_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "municipalityId",
+            "columnName": "municipio_zona_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "rfc",
+            "columnName": "rfc",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "nombre_comercio",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "line",
+            "columnName": "giro_comercial",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeZone",
+            "columnName": "zona_horaria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zoneOrigin",
+            "columnName": "origen_zona_climatica",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitud",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitud",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "createdOn",
+            "columnName": "fecha_alta",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "comercio_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_comercio_municipio_zona_id",
+            "unique": false,
+            "columnNames": [
+              "municipio_zona_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_comercio_municipio_zona_id` ON `${TABLE_NAME}` (`municipio_zona_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "municipio_zona_climatica",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "municipio_zona_id"
+            ],
+            "referencedColumns": [
+              "municipio_zona_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "usuario",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`usuario_id` INTEGER NOT NULL, `comercio_id` INTEGER, `codigo_rol` TEXT NOT NULL, `correo_electronico` TEXT NOT NULL, `nombre_completo` TEXT NOT NULL, `hash_contrasena` TEXT NOT NULL, `esta_activo` INTEGER NOT NULL, `fecha_alta` TEXT NOT NULL, PRIMARY KEY(`usuario_id`), FOREIGN KEY(`comercio_id`) REFERENCES `comercio`(`comercio_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`codigo_rol`) REFERENCES `rol`(`codigo_rol`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "usuario_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "businessId",
+            "columnName": "comercio_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "role",
+            "columnName": "codigo_rol",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "correo_electronico",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "nombre_completo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "passwordHash",
+            "columnName": "hash_contrasena",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "active",
+            "columnName": "esta_activo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdOn",
+            "columnName": "fecha_alta",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "usuario_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_usuario_comercio_id",
+            "unique": false,
+            "columnNames": [
+              "comercio_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_usuario_comercio_id` ON `${TABLE_NAME}` (`comercio_id`)"
+          },
+          {
+            "name": "index_usuario_codigo_rol",
+            "unique": false,
+            "columnNames": [
+              "codigo_rol"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_usuario_codigo_rol` ON `${TABLE_NAME}` (`codigo_rol`)"
+          },
+          {
+            "name": "index_usuario_correo_electronico",
+            "unique": true,
+            "columnNames": [
+              "correo_electronico"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_usuario_correo_electronico` ON `${TABLE_NAME}` (`correo_electronico`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "comercio",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "comercio_id"
+            ],
+            "referencedColumns": [
+              "comercio_id"
+            ]
+          },
+          {
+            "table": "rol",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "codigo_rol"
+            ],
+            "referencedColumns": [
+              "codigo_rol"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "unidad_medida",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`codigo_unidad` TEXT NOT NULL, `descripcion_unidad` TEXT NOT NULL, `permite_decimales` INTEGER NOT NULL, PRIMARY KEY(`codigo_unidad`))",
+        "fields": [
+          {
+            "fieldPath": "code",
+            "columnName": "codigo_unidad",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "descripcion_unidad",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "allowsFraction",
+            "columnName": "permite_decimales",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "codigo_unidad"
+          ]
+        }
+      },
+      {
+        "tableName": "categoria",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`categoria_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `comercio_id` INTEGER NOT NULL, `nombre_categoria` TEXT NOT NULL, `afinidad_climatica` TEXT, `zona_climatica_afinidad` TEXT, FOREIGN KEY(`comercio_id`) REFERENCES `comercio`(`comercio_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "categoria_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "businessId",
+            "columnName": "comercio_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "nombre_categoria",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "affinity",
+            "columnName": "afinidad_climatica",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "affinityZone",
+            "columnName": "zona_climatica_afinidad",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "categoria_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_categoria_comercio_id_nombre_categoria",
+            "unique": true,
+            "columnNames": [
+              "comercio_id",
+              "nombre_categoria"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_categoria_comercio_id_nombre_categoria` ON `${TABLE_NAME}` (`comercio_id`, `nombre_categoria`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "comercio",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "comercio_id"
+            ],
+            "referencedColumns": [
+              "comercio_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "temporada",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`temporada_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `comercio_id` INTEGER NOT NULL, `nombre_temporada` TEXT NOT NULL, `dia_inicio` INTEGER NOT NULL, `mes_inicio` INTEGER NOT NULL, `dia_fin` INTEGER NOT NULL, `mes_fin` INTEGER NOT NULL, FOREIGN KEY(`comercio_id`) REFERENCES `comercio`(`comercio_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "temporada_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "businessId",
+            "columnName": "comercio_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "nombre_temporada",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startDay",
+            "columnName": "dia_inicio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startMonth",
+            "columnName": "mes_inicio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endDay",
+            "columnName": "dia_fin",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endMonth",
+            "columnName": "mes_fin",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "temporada_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_temporada_comercio_id_nombre_temporada",
+            "unique": true,
+            "columnNames": [
+              "comercio_id",
+              "nombre_temporada"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_temporada_comercio_id_nombre_temporada` ON `${TABLE_NAME}` (`comercio_id`, `nombre_temporada`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "comercio",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "comercio_id"
+            ],
+            "referencedColumns": [
+              "comercio_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "producto",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`producto_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `comercio_id` INTEGER NOT NULL, `codigo_sku` TEXT NOT NULL, `categoria_id` INTEGER, `temporada_id` INTEGER, `codigo_unidad` TEXT NOT NULL, `nombre_producto` TEXT NOT NULL, `ciclo_producto` TEXT NOT NULL, `afinidad_climatica_propia` TEXT, `zona_climatica_afinidad_propia` TEXT, `precio_venta_regular` TEXT NOT NULL, `costo_compra_unitario` TEXT, `stock_minimo` INTEGER, `stock_maximo` INTEGER, `existencia_sistema` TEXT NOT NULL, `fecha_caducidad` TEXT, `estado_producto` TEXT NOT NULL, `fecha_alta` TEXT NOT NULL, FOREIGN KEY(`comercio_id`) REFERENCES `comercio`(`comercio_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`categoria_id`) REFERENCES `categoria`(`categoria_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`temporada_id`) REFERENCES `temporada`(`temporada_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`codigo_unidad`) REFERENCES `unidad_medida`(`codigo_unidad`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "producto_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "businessId",
+            "columnName": "comercio_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sku",
+            "columnName": "codigo_sku",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "categoryId",
+            "columnName": "categoria_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "seasonId",
+            "columnName": "temporada_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "unit",
+            "columnName": "codigo_unidad",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "nombre_producto",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cycle",
+            "columnName": "ciclo_producto",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "affinity",
+            "columnName": "afinidad_climatica_propia",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "affinityZone",
+            "columnName": "zona_climatica_afinidad_propia",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "price",
+            "columnName": "precio_venta_regular",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cost",
+            "columnName": "costo_compra_unitario",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "minStock",
+            "columnName": "stock_minimo",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "maxStock",
+            "columnName": "stock_maximo",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "systemStock",
+            "columnName": "existencia_sistema",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expiresOn",
+            "columnName": "fecha_caducidad",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "estado_producto",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdOn",
+            "columnName": "fecha_alta",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "producto_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_producto_comercio_id_codigo_sku",
+            "unique": true,
+            "columnNames": [
+              "comercio_id",
+              "codigo_sku"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_producto_comercio_id_codigo_sku` ON `${TABLE_NAME}` (`comercio_id`, `codigo_sku`)"
+          },
+          {
+            "name": "index_producto_categoria_id",
+            "unique": false,
+            "columnNames": [
+              "categoria_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_producto_categoria_id` ON `${TABLE_NAME}` (`categoria_id`)"
+          },
+          {
+            "name": "index_producto_temporada_id",
+            "unique": false,
+            "columnNames": [
+              "temporada_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_producto_temporada_id` ON `${TABLE_NAME}` (`temporada_id`)"
+          },
+          {
+            "name": "index_producto_codigo_unidad",
+            "unique": false,
+            "columnNames": [
+              "codigo_unidad"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_producto_codigo_unidad` ON `${TABLE_NAME}` (`codigo_unidad`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "comercio",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "comercio_id"
+            ],
+            "referencedColumns": [
+              "comercio_id"
+            ]
+          },
+          {
+            "table": "categoria",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "categoria_id"
+            ],
+            "referencedColumns": [
+              "categoria_id"
+            ]
+          },
+          {
+            "table": "temporada",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "temporada_id"
+            ],
+            "referencedColumns": [
+              "temporada_id"
+            ]
+          },
+          {
+            "table": "unidad_medida",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "codigo_unidad"
+            ],
+            "referencedColumns": [
+              "codigo_unidad"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "conciliacion_inventario",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`conciliacion_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `comercio_id` INTEGER NOT NULL, `producto_id` INTEGER NOT NULL, `confirmado_por_usuario_id` INTEGER, `existencia_sistema_al_contar` TEXT NOT NULL, `existencia_contada` TEXT NOT NULL, `metodo_conteo` TEXT NOT NULL, `ruta_foto_anaquel` TEXT, `confianza_vision` TEXT, `fecha_hora_conteo` TEXT NOT NULL, `clave_local` TEXT, FOREIGN KEY(`comercio_id`) REFERENCES `comercio`(`comercio_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`producto_id`) REFERENCES `producto`(`producto_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`confirmado_por_usuario_id`) REFERENCES `usuario`(`usuario_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "conciliacion_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "businessId",
+            "columnName": "comercio_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productId",
+            "columnName": "producto_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "confirmedBy",
+            "columnName": "confirmado_por_usuario_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "systemStockAtCount",
+            "columnName": "existencia_sistema_al_contar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "counted",
+            "columnName": "existencia_contada",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "method",
+            "columnName": "metodo_conteo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "photoPath",
+            "columnName": "ruta_foto_anaquel",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "visionConfidence",
+            "columnName": "confianza_vision",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "countedAt",
+            "columnName": "fecha_hora_conteo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "localKey",
+            "columnName": "clave_local",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "conciliacion_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_conciliacion_inventario_comercio_id",
+            "unique": false,
+            "columnNames": [
+              "comercio_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_conciliacion_inventario_comercio_id` ON `${TABLE_NAME}` (`comercio_id`)"
+          },
+          {
+            "name": "index_conciliacion_inventario_producto_id",
+            "unique": false,
+            "columnNames": [
+              "producto_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_conciliacion_inventario_producto_id` ON `${TABLE_NAME}` (`producto_id`)"
+          },
+          {
+            "name": "index_conciliacion_inventario_confirmado_por_usuario_id",
+            "unique": false,
+            "columnNames": [
+              "confirmado_por_usuario_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_conciliacion_inventario_confirmado_por_usuario_id` ON `${TABLE_NAME}` (`confirmado_por_usuario_id`)"
+          },
+          {
+            "name": "index_conciliacion_inventario_clave_local",
+            "unique": true,
+            "columnNames": [
+              "clave_local"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_conciliacion_inventario_clave_local` ON `${TABLE_NAME}` (`clave_local`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "comercio",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "comercio_id"
+            ],
+            "referencedColumns": [
+              "comercio_id"
+            ]
+          },
+          {
+            "table": "producto",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "producto_id"
+            ],
+            "referencedColumns": [
+              "producto_id"
+            ]
+          },
+          {
+            "table": "usuario",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "confirmado_por_usuario_id"
+            ],
+            "referencedColumns": [
+              "usuario_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "factura_proveedor",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`factura_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `comercio_id` INTEGER NOT NULL, `recibida_por_usuario_id` INTEGER, `nombre_proveedor` TEXT, `folio_factura` TEXT, `fecha_emision` TEXT, `ruta_imagen_factura` TEXT, `fecha_hora_captura` TEXT NOT NULL, `clave_local` TEXT, FOREIGN KEY(`comercio_id`) REFERENCES `comercio`(`comercio_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`recibida_por_usuario_id`) REFERENCES `usuario`(`usuario_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "factura_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "businessId",
+            "columnName": "comercio_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "receivedBy",
+            "columnName": "recibida_por_usuario_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "supplier",
+            "columnName": "nombre_proveedor",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "folio",
+            "columnName": "folio_factura",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "issuedOn",
+            "columnName": "fecha_emision",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "imagePath",
+            "columnName": "ruta_imagen_factura",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "capturedAt",
+            "columnName": "fecha_hora_captura",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "localKey",
+            "columnName": "clave_local",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "factura_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_factura_proveedor_comercio_id",
+            "unique": false,
+            "columnNames": [
+              "comercio_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_factura_proveedor_comercio_id` ON `${TABLE_NAME}` (`comercio_id`)"
+          },
+          {
+            "name": "index_factura_proveedor_recibida_por_usuario_id",
+            "unique": false,
+            "columnNames": [
+              "recibida_por_usuario_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_factura_proveedor_recibida_por_usuario_id` ON `${TABLE_NAME}` (`recibida_por_usuario_id`)"
+          },
+          {
+            "name": "index_factura_proveedor_clave_local",
+            "unique": true,
+            "columnNames": [
+              "clave_local"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_factura_proveedor_clave_local` ON `${TABLE_NAME}` (`clave_local`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "comercio",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "comercio_id"
+            ],
+            "referencedColumns": [
+              "comercio_id"
+            ]
+          },
+          {
+            "table": "usuario",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "recibida_por_usuario_id"
+            ],
+            "referencedColumns": [
+              "usuario_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "detalle_factura_proveedor",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`factura_id` INTEGER NOT NULL, `producto_id` INTEGER NOT NULL, `descripcion_leida_ocr` TEXT, `cantidad_comprada` TEXT, `costo_compra_unitario` TEXT, `confianza_ocr` TEXT, PRIMARY KEY(`factura_id`, `producto_id`), FOREIGN KEY(`factura_id`) REFERENCES `factura_proveedor`(`factura_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`producto_id`) REFERENCES `producto`(`producto_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "invoiceId",
+            "columnName": "factura_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productId",
+            "columnName": "producto_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "printedDescription",
+            "columnName": "descripcion_leida_ocr",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "quantity",
+            "columnName": "cantidad_comprada",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "unitCost",
+            "columnName": "costo_compra_unitario",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "ocrConfidence",
+            "columnName": "confianza_ocr",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "factura_id",
+            "producto_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_detalle_factura_proveedor_producto_id",
+            "unique": false,
+            "columnNames": [
+              "producto_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_detalle_factura_proveedor_producto_id` ON `${TABLE_NAME}` (`producto_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "factura_proveedor",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "factura_id"
+            ],
+            "referencedColumns": [
+              "factura_id"
+            ]
+          },
+          {
+            "table": "producto",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "producto_id"
+            ],
+            "referencedColumns": [
+              "producto_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "venta",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`venta_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `comercio_id` INTEGER NOT NULL, `folio_ticket_pos` TEXT, `fecha_hora_venta` TEXT NOT NULL, `fecha_hora_carga` TEXT NOT NULL, `clave_local` TEXT, FOREIGN KEY(`comercio_id`) REFERENCES `comercio`(`comercio_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "venta_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "businessId",
+            "columnName": "comercio_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ticketFolio",
+            "columnName": "folio_ticket_pos",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "soldAt",
+            "columnName": "fecha_hora_venta",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "loadedAt",
+            "columnName": "fecha_hora_carga",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "localKey",
+            "columnName": "clave_local",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "venta_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_venta_comercio_id_folio_ticket_pos",
+            "unique": true,
+            "columnNames": [
+              "comercio_id",
+              "folio_ticket_pos"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_venta_comercio_id_folio_ticket_pos` ON `${TABLE_NAME}` (`comercio_id`, `folio_ticket_pos`)"
+          },
+          {
+            "name": "index_venta_clave_local",
+            "unique": true,
+            "columnNames": [
+              "clave_local"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_venta_clave_local` ON `${TABLE_NAME}` (`clave_local`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "comercio",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "comercio_id"
+            ],
+            "referencedColumns": [
+              "comercio_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "detalle_venta",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`venta_id` INTEGER NOT NULL, `producto_id` INTEGER NOT NULL, `cantidad_vendida` TEXT NOT NULL, `precio_unitario_cobrado` TEXT NOT NULL, `subtotal` TEXT NOT NULL, PRIMARY KEY(`venta_id`, `producto_id`), FOREIGN KEY(`venta_id`) REFERENCES `venta`(`venta_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`producto_id`) REFERENCES `producto`(`producto_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "saleId",
+            "columnName": "venta_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productId",
+            "columnName": "producto_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantity",
+            "columnName": "cantidad_vendida",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unitPrice",
+            "columnName": "precio_unitario_cobrado",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subtotal",
+            "columnName": "subtotal",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "venta_id",
+            "producto_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_detalle_venta_producto_id",
+            "unique": false,
+            "columnNames": [
+              "producto_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_detalle_venta_producto_id` ON `${TABLE_NAME}` (`producto_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "venta",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "venta_id"
+            ],
+            "referencedColumns": [
+              "venta_id"
+            ]
+          },
+          {
+            "table": "producto",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "producto_id"
+            ],
+            "referencedColumns": [
+              "producto_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "recomendacion",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`recomendacion_id` INTEGER NOT NULL, `corrida_id` INTEGER NOT NULL, `producto_id` INTEGER NOT NULL, `accion_recomendada` TEXT NOT NULL, `sin_contraste_de_mercado` INTEGER NOT NULL, `decidido_por_usuario_id` INTEGER NOT NULL, `estado_decision` TEXT NOT NULL, `fecha_hora_decision` TEXT NOT NULL, `motivo_rechazo` TEXT, `precio_autorizado` TEXT, `acepto_riesgo_sin_contraste` INTEGER NOT NULL, PRIMARY KEY(`recomendacion_id`), FOREIGN KEY(`producto_id`) REFERENCES `producto`(`producto_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`decidido_por_usuario_id`) REFERENCES `usuario`(`usuario_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "recommendationId",
+            "columnName": "recomendacion_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "runId",
+            "columnName": "corrida_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productId",
+            "columnName": "producto_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "output",
+            "columnName": "accion_recomendada",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "withoutMarket",
+            "columnName": "sin_contraste_de_mercado",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "decidedBy",
+            "columnName": "decidido_por_usuario_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "decision",
+            "columnName": "estado_decision",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "decidedAt",
+            "columnName": "fecha_hora_decision",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reason",
+            "columnName": "motivo_rechazo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "authorizedPrice",
+            "columnName": "precio_autorizado",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "riskAccepted",
+            "columnName": "acepto_riesgo_sin_contraste",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "recomendacion_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_recomendacion_producto_id",
+            "unique": false,
+            "columnNames": [
+              "producto_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recomendacion_producto_id` ON `${TABLE_NAME}` (`producto_id`)"
+          },
+          {
+            "name": "index_recomendacion_decidido_por_usuario_id",
+            "unique": false,
+            "columnNames": [
+              "decidido_por_usuario_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recomendacion_decidido_por_usuario_id` ON `${TABLE_NAME}` (`decidido_por_usuario_id`)"
+          },
+          {
+            "name": "index_recomendacion_corrida_id_producto_id",
+            "unique": true,
+            "columnNames": [
+              "corrida_id",
+              "producto_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_recomendacion_corrida_id_producto_id` ON `${TABLE_NAME}` (`corrida_id`, `producto_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "producto",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "producto_id"
+            ],
+            "referencedColumns": [
+              "producto_id"
+            ]
+          },
+          {
+            "table": "usuario",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "decidido_por_usuario_id"
+            ],
+            "referencedColumns": [
+              "usuario_id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd4443290174b51dbebacc2dba8de1f81')"
+    ]
+  }
+}

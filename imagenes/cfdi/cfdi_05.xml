@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="4.0" Serie="A" Folio="1"
+    Fecha="2026-09-15T10:15:00" SubTotal="3390.40" Moneda="MXN" Total="3932.86" TipoDeComprobante="I" Exportacion="01" LugarExpedicion="57000">
+  <cfdi:Emisor Rfc="JAR141516IJ5" Nombre="Jardinería y Riego del Valle SA de CV" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="XAXX010101000" Nombre="FERRETERIA EL TORNILLO FELIZ" UsoCFDI="G01"/>
+  <cfdi:Conceptos>
+    <cfdi:Concepto ClaveProdServ="27111700" Cantidad="8" ClaveUnidad="H87" Descripcion="Manguera de jardín 15 m" ValorUnitario="205.00" Importe="1640.00" ObjetoImp="02"/>
+    <cfdi:Concepto ClaveProdServ="27111700" Cantidad="6" ClaveUnidad="H87" Descripcion="Regadera de plástico" ValorUnitario="88.40" Importe="530.40" ObjetoImp="02"/>
+    <cfdi:Concepto ClaveProdServ="27111700" Cantidad="20" ClaveUnidad="H87" Descripcion="Guantes de carnaza" ValorUnitario="61.00" Importe="1220.00" ObjetoImp="02"/>
+  </cfdi:Conceptos>
+  <cfdi:Complemento>
+    <tfd:TimbreFiscalDigital Version="1.1" UUID="5F2A9C10-0005-4A7B-9C3D-000000000005" FechaTimbrado="2026-09-15T10:16:02" RfcProvCertif="SAT970701NN3"/>
+  </cfdi:Complemento>
+</cfdi:Comprobante>

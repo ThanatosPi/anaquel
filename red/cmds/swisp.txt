@@ -1,0 +1,7 @@
+
+enable
+conf t
+no ip domain-lookup
+hostname SW-ISP
+end
+write memory

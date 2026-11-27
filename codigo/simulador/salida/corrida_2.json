@@ -1,0 +1,132 @@
+{
+  "corrida_id": 2,
+  "comercio": {
+    "nombre": "Ferretería El Tornillo Feliz",
+    "giro": "ferretería",
+    "zona_climatica": "TROPICAL",
+    "origen_zona": "GPS"
+  },
+  "iniciada_en": "2026-10-13T03:10:00-06:00",
+  "terminada_en": "2026-10-13T03:40:00-06:00",
+  "productos_evaluados": 59,
+  "recomendaciones": [
+    {
+      "recomendacion_id": 11,
+      "escenario": "E17",
+      "producto": {
+        "sku": "LLA-014",
+        "nombre": "Llave Stillson 14\"",
+        "ciclo": "PERMANENTE",
+        "categoria": "Herramienta manual",
+        "unidad": "PIEZA",
+        "admite_fraccion": false,
+        "precio_original": 520.0,
+        "costo_unitario": 390.0,
+        "fecha_caducidad": null
+      },
+      "salida": "LIQUIDAR",
+      "justificacion": "El dueño aprobó E01 a $468 y la campaña de 14 días terminó con cero unidades vendidas. Baja UN escalón: 20 % → 416. No es reintento automático: es una recomendación nueva, que apunta a la anterior y vuelve a pasar por la compuerta. Nunca salta dos escalones de golpe.",
+      "dias_sin_venta": 235,
+      "capital_detenido": 2340.0,
+      "afinidad_clima": "MEDIA",
+      "precio": {
+        "precio_original": 520.0,
+        "piso_economico": 273.0,
+        "piso_comercial": 156.0,
+        "precio_minimo": 273.0,
+        "precio_propuesto": 416.0,
+        "escalon": 2,
+        "sin_contraste_de_mercado": false
+      },
+      "retener": null,
+      "resurtir": null,
+      "abstencion": null,
+      "conciliacion": {
+        "existencia_fisica": 6,
+        "diferencia": 1,
+        "conciliada_en": "2026-09-21",
+        "origen": "FOTO"
+      },
+      "referencias": [
+        {
+          "fuente": "Catálogo de cadena ferretera",
+          "precio": 498.0,
+          "capturada_en": "2026-09-21",
+          "vigente_hasta": "2026-10-22",
+          "vigente": true,
+          "confianza_emparejamiento": 0.91
+        }
+      ],
+      "antecedente": {
+        "recomendacion_id": 1,
+        "escalon": 1,
+        "precio_propuesto": 468.0,
+        "decision": "APROBADA",
+        "motivo": null,
+        "campana_termino": "2026-10-06",
+        "existencia_inicial": 6,
+        "unidades_vendidas": 0
+      },
+      "autorizacion": null
+    },
+    {
+      "recomendacion_id": 13,
+      "escenario": "E20",
+      "producto": {
+        "sku": "CAL-030",
+        "nombre": "Calefactor eléctrico 1500 W",
+        "ciclo": "PERMANENTE",
+        "categoria": "Electricidad",
+        "unidad": "PIEZA",
+        "admite_fraccion": false,
+        "precio_original": 1290.0,
+        "costo_unitario": 900.0,
+        "fecha_caducidad": null
+      },
+      "salida": "LIQUIDAR",
+      "justificacion": "El dueño rechazó E10 (20 %, $1,032) con motivo «el precio es muy bajo». Un rechazo nunca autoriza bajar: la re-propuesta queda en el mismo escalón o sube uno. Sube a 10 %: $1,161, estrictamente entre 630 y 1,290. La afinidad BAJA pedía empezar un escalón más profundo; el motivo del dueño pesa más. Emitida SIN referencia de mercado vigente.",
+      "dias_sin_venta": 151,
+      "capital_detenido": 4500.0,
+      "afinidad_clima": "BAJA",
+      "precio": {
+        "precio_original": 1290.0,
+        "piso_economico": 630.0,
+        "piso_comercial": 387.0,
+        "precio_minimo": 630.0,
+        "precio_propuesto": 1161.0,
+        "escalon": 1,
+        "sin_contraste_de_mercado": true
+      },
+      "retener": null,
+      "resurtir": null,
+      "abstencion": null,
+      "conciliacion": {
+        "existencia_fisica": 5,
+        "diferencia": 0,
+        "conciliada_en": "2026-09-21",
+        "origen": "CARGA"
+      },
+      "referencias": [
+        {
+          "fuente": "Marketplace nacional",
+          "precio": 1190.0,
+          "capturada_en": "2026-09-21",
+          "vigente_hasta": "2026-10-07",
+          "vigente": false,
+          "confianza_emparejamiento": 0.78
+        }
+      ],
+      "antecedente": {
+        "recomendacion_id": 6,
+        "escalon": 2,
+        "precio_propuesto": 1032.0,
+        "decision": "RECHAZADA",
+        "motivo": "El precio es muy bajo; en diciembre sí se vende.",
+        "campana_termino": null,
+        "existencia_inicial": null,
+        "unidades_vendidas": null
+      },
+      "autorizacion": null
+    }
+  ]
+}

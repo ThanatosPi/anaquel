@@ -1,0 +1,215 @@
+{
+  "regla": "Municipio más cercano cuyo radio_km cubra el punto, por la fórmula del semiverseno con radio terrestre de 6371 km. Si ninguno lo cubre: sin zona, selector manual. Nunca se adivina.",
+  "municipios": [
+    {
+      "municipio_zona_id": 1,
+      "entidad_federativa": "Yucatán",
+      "municipio": "Mérida",
+      "zona_climatica": "TROPICAL",
+      "latitud_centro": 20.9672,
+      "longitud_centro": -89.6247,
+      "radio_km": 40.0,
+      "fuente_dato": "Clasificación Köppen-García (fuente pública)"
+    },
+    {
+      "municipio_zona_id": 2,
+      "entidad_federativa": "Estado de México",
+      "municipio": "Toluca",
+      "zona_climatica": "FRIO",
+      "latitud_centro": 19.2826,
+      "longitud_centro": -99.6557,
+      "radio_km": 30.0,
+      "fuente_dato": "Clasificación Köppen-García (fuente pública)"
+    },
+    {
+      "municipio_zona_id": 3,
+      "entidad_federativa": "Estado de México",
+      "municipio": "Nezahualcóyotl",
+      "zona_climatica": "TEMPLADO",
+      "latitud_centro": 19.4006,
+      "longitud_centro": -99.0148,
+      "radio_km": 15.0,
+      "fuente_dato": "Clasificación Köppen-García (fuente pública)"
+    },
+    {
+      "municipio_zona_id": 4,
+      "entidad_federativa": "Chihuahua",
+      "municipio": "Chihuahua",
+      "zona_climatica": "ARIDO",
+      "latitud_centro": 28.6353,
+      "longitud_centro": -106.0889,
+      "radio_km": 40.0,
+      "fuente_dato": "Clasificación Köppen-García (fuente pública)"
+    },
+    {
+      "municipio_zona_id": 5,
+      "entidad_federativa": "Coahuila",
+      "municipio": "Saltillo",
+      "zona_climatica": "SEMIARIDO",
+      "latitud_centro": 25.4233,
+      "longitud_centro": -101.0,
+      "radio_km": 35.0,
+      "fuente_dato": "Clasificación Köppen-García (fuente pública)"
+    },
+    {
+      "municipio_zona_id": 6,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Azcapotzalco",
+      "zona_climatica": "TEMPLADO",
+      "latitud_centro": 19.485329,
+      "longitud_centro": -99.182107,
+      "radio_km": 3.3,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09002) y Compendio geográfico municipal 2010: templado subhúmedo 100 %"
+    },
+    {
+      "municipio_zona_id": 7,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Coyoacán",
+      "zona_climatica": "TEMPLADO",
+      "latitud_centro": 19.326667,
+      "longitud_centro": -99.150376,
+      "radio_km": 4.1,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09003) y Compendio geográfico municipal 2010: templado subhúmedo 100 %"
+    },
+    {
+      "municipio_zona_id": 8,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Cuajimalpa de Morelos",
+      "zona_climatica": "FRIO",
+      "latitud_centro": 19.324321,
+      "longitud_centro": -99.31093,
+      "radio_km": 4.8,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09004) y Compendio geográfico municipal 2010: semifrío 50.71 %, templado 49.29 %"
+    },
+    {
+      "municipio_zona_id": 9,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Gustavo A. Madero",
+      "zona_climatica": "TEMPLADO",
+      "latitud_centro": 19.504065,
+      "longitud_centro": -99.115864,
+      "radio_km": 5.3,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09005) y Compendio geográfico municipal 2010: templado subhúmedo 72.80 %"
+    },
+    {
+      "municipio_zona_id": 10,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Iztacalco",
+      "zona_climatica": "SEMIARIDO",
+      "latitud_centro": 19.396912,
+      "longitud_centro": -99.09433,
+      "radio_km": 2.7,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09006) y Compendio geográfico municipal 2010: seco semiseco 78.70 %"
+    },
+    {
+      "municipio_zona_id": 11,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Iztapalapa",
+      "zona_climatica": "TEMPLADO",
+      "latitud_centro": 19.349166,
+      "longitud_centro": -99.056799,
+      "radio_km": 6.0,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09007) y Compendio geográfico municipal 2010: templado subhúmedo 77.48 %"
+    },
+    {
+      "municipio_zona_id": 12,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "La Magdalena Contreras",
+      "zona_climatica": "FRIO",
+      "latitud_centro": 19.268977,
+      "longitud_centro": -99.268413,
+      "radio_km": 4.5,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09008) y Compendio geográfico municipal 2010: semifrío 62.89 %"
+    },
+    {
+      "municipio_zona_id": 13,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Milpa Alta",
+      "zona_climatica": "FRIO",
+      "latitud_centro": 19.141773,
+      "longitud_centro": -99.049318,
+      "radio_km": 9.6,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09009) y Compendio geográfico municipal 2010: semifrío 67.87 %"
+    },
+    {
+      "municipio_zona_id": 14,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Álvaro Obregón",
+      "zona_climatica": "TEMPLADO",
+      "latitud_centro": 19.336176,
+      "longitud_centro": -99.24682,
+      "radio_km": 5.5,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09010) y Compendio geográfico municipal 2010: templado subhúmedo 71.82 %"
+    },
+    {
+      "municipio_zona_id": 15,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Tláhuac",
+      "zona_climatica": "TEMPLADO",
+      "latitud_centro": 19.276998,
+      "longitud_centro": -99.002822,
+      "radio_km": 5.2,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09011) y Compendio geográfico municipal 2010: templado subhúmedo 100 %"
+    },
+    {
+      "municipio_zona_id": 16,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Tlalpan",
+      "zona_climatica": "FRIO",
+      "latitud_centro": 19.198338,
+      "longitud_centro": -99.206221,
+      "radio_km": 10.0,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09012) y Compendio geográfico municipal 2010: semifrío 62.92 %"
+    },
+    {
+      "municipio_zona_id": 17,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Xochimilco",
+      "zona_climatica": "TEMPLADO",
+      "latitud_centro": 19.245145,
+      "longitud_centro": -99.090364,
+      "radio_km": 6.0,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09013) y Compendio geográfico municipal 2010: templado subhúmedo 97.38 %"
+    },
+    {
+      "municipio_zona_id": 18,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Benito Juárez",
+      "zona_climatica": "TEMPLADO",
+      "latitud_centro": 19.380642,
+      "longitud_centro": -99.161135,
+      "radio_km": 2.9,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09014) y Compendio geográfico municipal 2010: templado subhúmedo 100 %"
+    },
+    {
+      "municipio_zona_id": 19,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Cuauhtémoc",
+      "zona_climatica": "TEMPLADO",
+      "latitud_centro": 19.431373,
+      "longitud_centro": -99.149056,
+      "radio_km": 3.2,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09015) y Compendio geográfico municipal 2010: templado subhúmedo 100 %"
+    },
+    {
+      "municipio_zona_id": 20,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Miguel Hidalgo",
+      "zona_climatica": "TEMPLADO",
+      "latitud_centro": 19.428069,
+      "longitud_centro": -99.204584,
+      "radio_km": 3.9,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09016) y Compendio geográfico municipal 2010: templado subhúmedo 100 %"
+    },
+    {
+      "municipio_zona_id": 21,
+      "entidad_federativa": "Ciudad de México",
+      "municipio": "Venustiano Carranza",
+      "zona_climatica": "SEMIARIDO",
+      "latitud_centro": 19.430495,
+      "longitud_centro": -99.093106,
+      "radio_km": 3.3,
+      "fuente_dato": "INEGI, Marco Geoestadístico dic. 2025 (09017) y Compendio geográfico municipal 2010: seco semiseco 91.42 %"
+    }
+  ]
+}
